@@ -1,6 +1,7 @@
 package com.hackathon.fiap.timesheet.dataprovider.repository.entity;
 
 
+import com.hackathon.fiap.timesheet.entrypoint.controller.request.FormCreateUser;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Collection;
 import java.util.List;
@@ -28,6 +30,12 @@ public class UsuarioEntity implements UserDetails {
     private String login;
 
     private String senha;
+
+    public UsuarioEntity(FormCreateUser formCreateUser) {
+        String senhaCriptografado = new BCryptPasswordEncoder().encode(formCreateUser.senha());
+        setLogin(formCreateUser.login());
+        setSenha(senhaCriptografado);
+    }
 
 
     @Override
