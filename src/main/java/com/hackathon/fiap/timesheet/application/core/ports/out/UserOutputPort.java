@@ -14,5 +14,5 @@ public interface UserOutputPort {
 
     Boolean exists(String userId);
 
-    Optional<List<User>> listUsers();
+    List<User> listUsers();
 }

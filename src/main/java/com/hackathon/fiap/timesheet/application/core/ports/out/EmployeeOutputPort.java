@@ -14,5 +14,5 @@ public interface EmployeeOutputPort {
 
     Boolean exists(Long employeeId);
 
-    Optional<List<Employee>> listEmployees();
+    List<Employee> listEmployees();
 }

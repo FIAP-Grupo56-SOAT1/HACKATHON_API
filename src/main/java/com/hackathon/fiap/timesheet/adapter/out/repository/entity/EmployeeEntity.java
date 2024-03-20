@@ -1,5 +1,6 @@
 package com.hackathon.fiap.timesheet.adapter.out.repository.entity;
 
+import com.hackathon.fiap.timesheet.application.core.contants.EmployeeRole;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,13 +18,11 @@ public class EmployeeEntity {
     private Long employeeId;
 
     @Column(nullable = false, length = 50)
-    private String email;
-
-    @Column(nullable = false, length = 50)
     private String name;
 
-    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private UserEntity user;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 50)
+    private EmployeeRole role;
 
     @Column(nullable = false, columnDefinition = "boolean default true")
     private Boolean active;

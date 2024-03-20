@@ -18,8 +18,8 @@ public class UserEntity {
     @Column(nullable = false, length = 50)
     private String password;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id", referencedColumnName = "employee_id", nullable = false)
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "employee_id", referencedColumnName = "employee_id")
     private EmployeeEntity employee;
 
     @Column(nullable = false, columnDefinition = "boolean default true")

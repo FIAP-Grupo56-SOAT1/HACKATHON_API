@@ -14,9 +14,9 @@ import com.hackathon.fiap.timesheet.application.core.validator.PasswordValidator
 import java.util.List;
 
 public class UserUseCase implements UserInputPort {
-    private UserOutputPort userOutputPort;
-    private EmployeeOutputPort employeeOutputPort;
-    private CryptographyOutputPort cryptographyOutputPort;
+    private final UserOutputPort userOutputPort;
+    private final EmployeeOutputPort employeeOutputPort;
+    private final CryptographyOutputPort cryptographyOutputPort;
 
     public UserUseCase(UserOutputPort userOutputPort,
                        EmployeeOutputPort employeeOutputPort,
@@ -39,30 +39,32 @@ public class UserUseCase implements UserInputPort {
     @Override
     public void updatePassword(String userId, String password) {
         if(!PasswordValidator.isValidPassword(password)) throw new InvalidFormat("Invalid password");
-        if(!userOutputPort.exists(userId)) throw new UserNotFound("User not found");
-        String passEncrypted = cryptographyOutputPort.encrypt(password);
-        //userOutputPort.updatePassword(userId, passEncrypted);
-        //return null;
+        User user = userOutputPort.get(userId).orElseThrow(() -> new UserNotFound("User not found"));
+        user.setPassword(cryptographyOutputPort.encrypt(password));
+        userOutputPort.save(user);
     }
 
     @Override
     public User updateStatus(String userId, Boolean active) {
-        return null;
+        User user = userOutputPort.get(userId).orElseThrow(() -> new UserNotFound("User not found"));
+        user.setActive(active);
+        return userOutputPort.save(user);
     }
 
 
     @Override
     public void delete(String userId) {
-
+        if(!userOutputPort.exists(userId)) throw new UserNotFound("User not found");
+        userOutputPort.delete(userId);
     }
 
     @Override
     public User get(String userId) {
-        return null;
+        return userOutputPort.get(userId).orElseThrow(() -> new UserNotFound("User not found"));
     }
 
     @Override
     public List<User> listUsers() {
-        return null;
+        return userOutputPort.listUsers();
     }
 }
