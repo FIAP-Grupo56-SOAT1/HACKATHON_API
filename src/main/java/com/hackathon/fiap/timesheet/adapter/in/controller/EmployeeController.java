@@ -9,10 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,11 +18,25 @@ public class EmployeeController {
     private final EmployeeInputPort employeeInputPort;
     private final EmployeeMapper employeeMapper;
 
-
     @PostMapping()
     @Operation(summary = "Criar funcionário", description = "Cria um funcionário")
     public ResponseEntity<EmployeeResponse> create(@RequestBody @Valid EmployeeRequest employeeRequest) {
         Employee employee = employeeInputPort.create(employeeRequest.getName(), employeeRequest.getRole());
+        EmployeeResponse employeeResponse = employeeMapper.toEmployeeResponse(employee);
+        return ResponseEntity.ok(employeeResponse);
+    }
+
+    @DeleteMapping("{employeeId}")
+    @Operation(summary = "Deletar funcionário", description = "Deleta um funcionário")
+    public ResponseEntity<Void> delete(@PathVariable("employeeId") Long employeeId) {
+        employeeInputPort.delete(employeeId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("{employeeId}")
+    @Operation(summary = "Consultar funcionário", description = "Consulta um funcionário")
+    public ResponseEntity<EmployeeResponse> findById(@PathVariable("employeeId") Long employeeId) {
+        Employee employee = employeeInputPort.get(employeeId);
         EmployeeResponse employeeResponse = employeeMapper.toEmployeeResponse(employee);
         return ResponseEntity.ok(employeeResponse);
     }

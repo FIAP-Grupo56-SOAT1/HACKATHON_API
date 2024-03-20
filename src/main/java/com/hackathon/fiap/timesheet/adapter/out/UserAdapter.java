@@ -31,7 +31,7 @@ public class UserAdapter implements UserOutputPort {
 
     @Override
     public Optional<User> get(String userId) {
-        return userRepository.findById(userId).map(userEntityMapper::toUser);
+        return userRepository.findByUserIdAndActiveTrue(userId).map(userEntityMapper::toUser);
     }
 
     @Override
@@ -46,6 +46,6 @@ public class UserAdapter implements UserOutputPort {
 
     @Override
     public List<User> listUsers() {
-        return userRepository.findAll().stream().map(userEntityMapper::toUser).toList();
+        return userRepository.findAllByActiveTrue().stream().map(userEntityMapper::toUser).toList();
     }
 }
