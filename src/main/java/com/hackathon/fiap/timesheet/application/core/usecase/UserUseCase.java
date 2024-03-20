@@ -27,12 +27,12 @@ public class UserUseCase implements UserInputPort {
     }
 
     @Override
-    public User create(String userId, String password, Long employeeId) {
+    public User create(String userName, String password, Long employeeId) {
         if(!employeeOutputPort.exists(employeeId)) throw new EmployeeNotFound("Employee not found");
-        if (!EmailValidator.isValidEmail(userId)) throw new InvalidFormat("Invalid email");
+        if (!EmailValidator.isValidEmail(userName)) throw new InvalidFormat("Invalid email");
         if(!PasswordValidator.isValidPassword(password)) throw new InvalidFormat("Invalid password");
         String passEncrypted = cryptographyOutputPort.encrypt(password);
-        User user = new User(userId, passEncrypted, employeeId, true);
+        User user = new User(userName, passEncrypted, employeeId, true);
         return userOutputPort.save(user);
     }
 

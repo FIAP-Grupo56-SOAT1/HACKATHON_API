@@ -1,13 +1,17 @@
 package com.hackathon.fiap.timesheet.application.core.domain;
 
-public class User {
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
+
+public class User implements UserDetails {
     private String userId;
     private String password;
     private Long employeeId;
     private Boolean active;
-
-    public User() {
-    }
 
     public User(String userId, String password, Long employeeId, Boolean active) {
         this.userId = userId;
@@ -16,16 +20,41 @@ public class User {
         this.active = active;
     }
 
-    public String getUserId() {
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    @Override
+    public String getPassword() {
+
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
         return userId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
     }
 
-    public String getPassword() {
-        return password;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setPassword(String password) {
@@ -47,4 +76,13 @@ public class User {
     public void setActive(Boolean active) {
         this.active = active;
     }
+
+    public void setUserName(String userName) {
+        this.userId = userName;
+    }
+
+    public void setuserId(String userId){
+        this.userId = userId;
+    }
+
 }

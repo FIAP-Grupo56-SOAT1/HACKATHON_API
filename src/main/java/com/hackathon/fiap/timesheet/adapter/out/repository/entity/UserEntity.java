@@ -9,13 +9,13 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity(name = "User")
-@Table(name = "USER")
+@Table(name = "user")
 public class UserEntity {
     @Id
     @Column(name = "user_id")
     private String userId;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 2000)
     private String password;
 
     @OneToOne(fetch = FetchType.EAGER)
