@@ -12,6 +12,8 @@ public interface UserOutputPort {
 
     Optional<User> get(String userId);
 
+    Optional<User> getByEmployeeId(Long employeeId);
+
     Boolean exists(String userId);
 
     List<User> listUsers();

@@ -20,7 +20,8 @@ public class UserAdapter implements UserOutputPort {
     @Override
     public User save(User user) {
         UserEntity userEntity = userEntityMapper.toUserEntity(user);
-        return userEntityMapper.toUser(userEntity);
+        UserEntity userSaved = userRepository.save(userEntity);
+        return userEntityMapper.toUser(userSaved);
     }
 
     @Override
@@ -30,7 +31,12 @@ public class UserAdapter implements UserOutputPort {
 
     @Override
     public Optional<User> get(String userId) {
-        return Optional.empty();
+        return userRepository.findById(userId).map(userEntityMapper::toUser);
+    }
+
+    @Override
+    public Optional<User> getByEmployeeId(Long employeeId) {
+        return userRepository.findByEmployee_EmployeeId(employeeId).map(userEntityMapper::toUser);
     }
 
     @Override

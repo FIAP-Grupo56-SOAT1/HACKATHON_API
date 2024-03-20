@@ -8,6 +8,8 @@ public class CryptographyAdapter implements CryptographyOutputPort {
 
     @Override
     public String encrypt(String value) {
-        return null;
+        //BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        //return passwordEncoder.encode(value);
+        return value;
     }
 }
