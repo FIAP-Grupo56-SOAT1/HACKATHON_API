@@ -18,9 +18,12 @@ public class UserUseCase implements UserInputPort {
     private EmployeeOutputPort employeeOutputPort;
     private CryptographyOutputPort cryptographyOutputPort;
 
-    public UserUseCase(UserOutputPort userOutputPort, EmployeeOutputPort employeeOutputPort) {
+    public UserUseCase(UserOutputPort userOutputPort,
+                       EmployeeOutputPort employeeOutputPort,
+                       CryptographyOutputPort cryptographyOutputPort) {
         this.userOutputPort = userOutputPort;
         this.employeeOutputPort = employeeOutputPort;
+        this.cryptographyOutputPort = cryptographyOutputPort;
     }
 
     @Override
@@ -38,8 +41,6 @@ public class UserUseCase implements UserInputPort {
         if(!PasswordValidator.isValidPassword(password)) throw new InvalidFormat("Invalid password");
         if(!userOutputPort.exists(userId)) throw new UserNotFound("User not found");
         String passEncrypted = cryptographyOutputPort.encrypt(password);
-
-
         //userOutputPort.updatePassword(userId, passEncrypted);
         //return null;
     }
