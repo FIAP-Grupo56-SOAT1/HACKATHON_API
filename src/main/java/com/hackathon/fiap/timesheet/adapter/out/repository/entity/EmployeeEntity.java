@@ -22,7 +22,7 @@ public class EmployeeEntity {
     @Column(nullable = false, length = 50)
     private String name;
 
-    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private UserEntity user;
 
     @Column(nullable = false, columnDefinition = "boolean default true")

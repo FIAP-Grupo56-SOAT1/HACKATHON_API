@@ -1,10 +1,12 @@
 package com.hackathon.fiap.timesheet.adapter.in.controller.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Builder
+@Getter
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class UserRequest {
     private String userId;
     private String password;
