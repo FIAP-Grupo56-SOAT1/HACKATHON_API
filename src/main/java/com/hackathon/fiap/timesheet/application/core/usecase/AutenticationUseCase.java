@@ -5,24 +5,16 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.hackathon.fiap.timesheet.application.core.domain.User;
-import com.hackathon.fiap.timesheet.application.core.exptions.EmployeeNotFound;
-import com.hackathon.fiap.timesheet.application.core.exptions.InvalidFormat;
-import com.hackathon.fiap.timesheet.application.core.exptions.UserNotFound;
 import com.hackathon.fiap.timesheet.application.core.ports.in.AutenticationInputPort;
-import com.hackathon.fiap.timesheet.application.core.ports.in.UserInputPort;
 import com.hackathon.fiap.timesheet.application.core.ports.out.CryptographyOutputPort;
 import com.hackathon.fiap.timesheet.application.core.ports.out.EmployeeOutputPort;
 import com.hackathon.fiap.timesheet.application.core.ports.out.UserOutputPort;
-import com.hackathon.fiap.timesheet.application.core.validator.EmailValidator;
-import com.hackathon.fiap.timesheet.application.core.validator.PasswordValidator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.List;
 
 public class AutenticationUseCase implements AutenticationInputPort {
 
@@ -45,7 +37,8 @@ public class AutenticationUseCase implements AutenticationInputPort {
 
     @Override
     public UsernamePasswordAuthenticationToken UsernamePasswordAuthenticationToken(String userId, String password) {
-        return new UsernamePasswordAuthenticationToken(userId, password);
+        UsernamePasswordAuthenticationToken authenticationToken =  UsernamePasswordAuthenticationToken(userId, password);
+        return authenticationToken;
     }
 
     @Override
@@ -54,7 +47,7 @@ public class AutenticationUseCase implements AutenticationInputPort {
             var algoritmo = Algorithm.HMAC256(secret);
             return JWT.create()
                     .withIssuer(applicationName)
-                    .withSubject(user.getUsername())
+                    .withSubject(user.getUserId())
                     .withExpiresAt(dataExpiracao())
                     .sign(algoritmo);
         } catch (JWTCreationException exception){
