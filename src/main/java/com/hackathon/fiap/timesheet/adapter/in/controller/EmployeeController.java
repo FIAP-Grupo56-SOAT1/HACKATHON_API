@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("Employees")
+@RequestMapping("employees")
 public class EmployeeController {
     private final EmployeeInputPort employeeInputPort;
     private final EmployeeMapper employeeMapper;
