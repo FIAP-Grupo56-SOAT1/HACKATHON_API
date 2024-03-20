@@ -10,14 +10,14 @@ public interface EmployeeEntityMapper {
     @Mapping(source = "employeeId", target = "employeeId")
     @Mapping(source = "name", target = "name")
     @Mapping(source = "role", target = "role")
-    @Mapping(source = "userId", target = "user.userId")
+    //@Mapping(source = "userId", target = "user.userId")
     @Mapping(source = "active", target = "active")
     EmployeeEntity toEmployeeEntity(Employee employee);
 
     @Mapping(source = "employeeId", target = "employeeId")
     @Mapping(source = "name", target = "name")
     @Mapping(source = "role", target = "role")
-    @Mapping(source = "user.userId", target = "userId")
+    //@Mapping(source = "user.userId", target = "userId")
     @Mapping(source = "active", target = "active")
     Employee toEmployee(EmployeeEntity employeeEntity);
 }
