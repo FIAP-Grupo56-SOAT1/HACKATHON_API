@@ -6,6 +6,9 @@ public class Employee {
     private String name;
     private Boolean active;
 
+    public Employee() {
+    }
+
     public Employee(Long employeeId, String email, String name, Boolean active) {
         this.employeeId = employeeId;
         this.email = email;
