@@ -20,6 +20,9 @@ public class EmployeeEntity {
     @Column(nullable = false, length = 50)
     private String name;
 
+    @Column(nullable = false, length = 50)
+    private String email;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 50)
     private EmployeeRole role;

@@ -21,7 +21,7 @@ public class EmployeeController {
     @PostMapping()
     @Operation(summary = "Criar funcionário", description = "Cria um funcionário")
     public ResponseEntity<EmployeeResponse> create(@RequestBody @Valid EmployeeRequest employeeRequest) {
-        Employee employee = employeeInputPort.create(employeeRequest.getName(), employeeRequest.getRole());
+        Employee employee = employeeInputPort.create(employeeRequest.getName(), employeeRequest.getEmail(), employeeRequest.getRole());
         EmployeeResponse employeeResponse = employeeMapper.toEmployeeResponse(employee);
         return ResponseEntity.ok(employeeResponse);
     }

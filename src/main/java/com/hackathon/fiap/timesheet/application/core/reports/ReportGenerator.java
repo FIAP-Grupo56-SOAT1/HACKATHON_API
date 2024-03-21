@@ -1,16 +1,15 @@
-package com.hackathon.fiap.timesheet.application.core.valueobject;
+package com.hackathon.fiap.timesheet.application.core.reports;
 
 import com.hackathon.fiap.timesheet.application.core.contants.ReportType;
 import com.hackathon.fiap.timesheet.application.core.ports.out.ReportDataOutputPort;
 
-import java.util.List;
-
 public abstract class ReportGenerator<T, J> {
     private String reportName;
     private ReportType reportType;
-    private ReportDataOutputPort<J> reportDataOutputPort;
+    private J reportOrigin;
+    private ReportDataOutputPort<T, J> reportDataOutputPort;
 
-    protected ReportGenerator(String reportName, ReportType reportType, ReportDataOutputPort reportDataOutputPort) {
+    public ReportGenerator(String reportName, ReportType reportType, ReportDataOutputPort reportDataOutputPort) {
         this.reportName = reportName;
         this.reportType = reportType;
         this.reportDataOutputPort = reportDataOutputPort;
@@ -32,7 +31,11 @@ public abstract class ReportGenerator<T, J> {
         this.reportType = reportType;
     }
 
-    public ReportData<J> getReportData() {
-        return reportDataOutputPort.getReportData();
+    public void setReportOrigin(J reportOrigin) {
+        this.reportOrigin = reportOrigin;
+    }
+
+    public ReportData<T> getReportData() {
+        return reportDataOutputPort.getReportData(reportOrigin);
     }
 }

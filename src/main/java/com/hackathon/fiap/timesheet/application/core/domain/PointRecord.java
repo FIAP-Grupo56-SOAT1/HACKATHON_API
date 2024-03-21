@@ -12,6 +12,9 @@ public class PointRecord {
     private LocalTime time;
     private PointRecordType type;
 
+    public PointRecord() {
+    }
+
     public PointRecord(Long pointRecordId, Long employeeId, LocalDate date, LocalTime time, PointRecordType type) {
         this.pointRecordId = pointRecordId;
         this.employeeId = employeeId;

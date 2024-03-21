@@ -1,5 +1,9 @@
 package com.hackathon.fiap.timesheet.adapter.in.controller;
 
+import com.hackathon.fiap.timesheet.adapter.out.DefaultDotMirrorReportDataAdapter;
+import com.hackathon.fiap.timesheet.application.core.ports.in.DotMirrorReportInputPort;
+import com.hackathon.fiap.timesheet.application.core.reports.ReportData;
+import com.hackathon.fiap.timesheet.application.core.reports.impl.DefaultDotMirrorReport;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -14,10 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("reports")
 @Tag(name = "Relatórios", description = "Controller que gerencia a emisão de relatório")
 public class ReportController {
+    private final DotMirrorReportInputPort dotMirrorReportInputPort;
+    private final DefaultDotMirrorReportDataAdapter defaultDotMirrorReportDataAdapter;
 
     @PostMapping("/generate/{employeeId}/dot-mirror")
     @Operation(summary = "Gerar relatório espelho de ponto", description = "Gera o relatório espelho de ponto de um funcionário")
     public ResponseEntity<Void> generateDotMirrorReport(@PathVariable("employeeId") Long employeeId) {
+        DefaultDotMirrorReport defaultDotMirrorReport = new DefaultDotMirrorReport(defaultDotMirrorReportDataAdapter);
+        ReportData reportData = dotMirrorReportInputPort.generate(employeeId, defaultDotMirrorReport);
         return ResponseEntity.ok().build();
     }
 

@@ -6,6 +6,7 @@ import com.hackathon.fiap.timesheet.application.core.exptions.EmployeeNotFoundEx
 import com.hackathon.fiap.timesheet.application.core.exptions.InvalidFormatException;
 import com.hackathon.fiap.timesheet.application.core.ports.in.EmployeeInputPort;
 import com.hackathon.fiap.timesheet.application.core.ports.out.EmployeeOutputPort;
+import com.hackathon.fiap.timesheet.application.core.validator.EmailValidator;
 
 import java.util.List;
 import java.util.regex.Pattern;
@@ -18,20 +19,24 @@ public class EmployeeUseCase implements EmployeeInputPort {
     }
 
     @Override
-    public Employee create(String name, EmployeeRole role) {
+    public Employee create(String name, String email, EmployeeRole role) {
         validateEmployee(name);
+        if (!EmailValidator.isValidEmail(email)) throw new InvalidFormatException("Invalid email");
         Employee employee = new Employee();
         employee.setName(name);
+        employee.setEmail(email);
         employee.setRole(role);
         employee.setActive(true);
         return employeeOutputPort.save(employee);
     }
 
     @Override
-    public Employee update(Long employeeId, String name, EmployeeRole role, Boolean active) {
+    public Employee update(Long employeeId, String name, String email, EmployeeRole role, Boolean active) {
         validateEmployee(name);
+        if (!EmailValidator.isValidEmail(email)) throw new InvalidFormatException("Invalid email");
         Employee employee = get(employeeId);
         employee.setName(name);
+        employee.setEmail(email);
         employee.setRole(role);
         employee.setActive(active);
         return employeeOutputPort.save(employee);
