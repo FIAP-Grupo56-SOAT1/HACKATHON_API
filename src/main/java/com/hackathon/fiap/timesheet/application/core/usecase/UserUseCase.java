@@ -37,7 +37,7 @@ public class UserUseCase implements UserInputPort {
         if (!EmailValidator.isValidEmail(userId)) throw new InvalidFormatException("Invalid User Id");
         if (!PasswordValidator.isValidPassword(password)) throw new InvalidFormatException("Invalid password");
         String passEncrypted = cryptographyOutputPort.encrypt(password);
-        User user = new User(userId, passEncrypted, employeeId, true);
+        User user = new User(userName, passEncrypted, employeeId, true);
         return userOutputPort.save(user);
     }
 

@@ -10,11 +10,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity(name = "Employee")
-@Table(name = "EMPLOYEE")
+@Table(name = "employee")
 public class EmployeeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "employee_id")
+    @Column(name = "employee_Id")
     private Long employeeId;
 
     @Column(nullable = false, length = 50)
