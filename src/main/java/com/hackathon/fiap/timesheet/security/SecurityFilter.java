@@ -1,5 +1,6 @@
 package com.hackathon.fiap.timesheet.security;
 
+import com.hackathon.fiap.timesheet.adapter.out.repository.UserRepository;
 import com.hackathon.fiap.timesheet.application.core.ports.in.AutenticationInputPort;
 import com.hackathon.fiap.timesheet.application.core.ports.in.UserInputPort;
 import jakarta.servlet.FilterChain;
@@ -22,6 +23,13 @@ public class SecurityFilter  extends OncePerRequestFilter {
     private AutenticationInputPort autenticationInputPort;
     private UserInputPort userInputPort;
 
+    @Autowired
+    private UserRepository repository;
+
+    @Autowired
+    private TokenService tokenService;
+
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -31,10 +39,10 @@ public class SecurityFilter  extends OncePerRequestFilter {
         var tokenJWT = recuperarToken(request);
 
         if (tokenJWT != null) {
-            var subject = autenticationInputPort.GetSubject(tokenJWT);
-            var usuario = userInputPort.get(subject);
+            var subject = tokenService.getSubject(tokenJWT);
+            var usuario = repository.findById(subject);
 
-            var authentication = new UsernamePasswordAuthenticationToken(usuario, null, List.of(new SimpleGrantedAuthority("ROLE_USER")));
+            var authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.get().getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
@@ -49,4 +57,5 @@ public class SecurityFilter  extends OncePerRequestFilter {
         }
         return null;
     }
+
 }

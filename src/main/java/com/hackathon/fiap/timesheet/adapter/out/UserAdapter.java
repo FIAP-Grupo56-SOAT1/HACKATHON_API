@@ -20,6 +20,7 @@ public class UserAdapter implements UserOutputPort {
     @Override
     public User save(User user) {
         UserEntity userEntity = userEntityMapper.toUserEntity(user);
+        userRepository.save(userEntity);
         return userEntityMapper.toUser(userEntity);
     }
 

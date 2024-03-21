@@ -18,14 +18,14 @@ import java.util.List;
 @Table(name = "user")
 public class UserEntity implements UserDetails {
     @Id
-    @Column(name = "userId")
+    @Column(name = "user_id")
     private String userId;
 
     @Column(nullable = false, length = 2000)
     private String password;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "employeeId", referencedColumnName = "employeeId")
+    @JoinColumn(name = "employee_Id", referencedColumnName = "employee_Id")
     private EmployeeEntity employee;
 
     @Column(nullable = false, columnDefinition = "boolean default true")
