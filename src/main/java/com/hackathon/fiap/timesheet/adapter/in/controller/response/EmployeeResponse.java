@@ -12,7 +12,7 @@ import lombok.*;
 public class EmployeeResponse {
     private Long employeeId;
     private String name;
+    private String email;
     private EmployeeRole role;
-    private String userId;
     private Boolean active;
 }

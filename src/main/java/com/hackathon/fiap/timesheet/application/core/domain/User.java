@@ -6,9 +6,6 @@ public class User {
     private Long employeeId;
     private Boolean active;
 
-    public User() {
-    }
-
     public User(String userId, String password, Long employeeId, Boolean active) {
         this.userId = userId;
         this.password = password;
@@ -16,20 +13,13 @@ public class User {
         this.active = active;
     }
 
-    public String getUserId() {
-        return userId;
+
+    public Boolean getActive() {
+        return active;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public Long getEmployeeId() {
@@ -40,11 +30,19 @@ public class User {
         this.employeeId = employeeId;
     }
 
-    public Boolean getActive() {
-        return active;
+    public String getPassword() {
+        return password;
     }
 
-    public void setActive(Boolean active) {
-        this.active = active;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

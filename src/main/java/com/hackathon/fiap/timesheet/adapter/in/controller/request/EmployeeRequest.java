@@ -1,6 +1,7 @@
 package com.hackathon.fiap.timesheet.adapter.in.controller.request;
 
 import com.hackathon.fiap.timesheet.application.core.contants.EmployeeRole;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -12,6 +13,9 @@ import lombok.*;
 public class EmployeeRequest {
     @NotNull
     private String name;
+    @NotNull
+    @Email
+    private String email;
     @NotNull
     private EmployeeRole role;
 }

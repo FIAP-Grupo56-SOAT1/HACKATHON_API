@@ -5,18 +5,18 @@ import com.hackathon.fiap.timesheet.application.core.contants.EmployeeRole;
 public class Employee {
     private Long employeeId;
     private String name;
+    private String email;
     private EmployeeRole role;
-    private String userId;
     private Boolean active;
 
     public Employee() {
     }
 
-    public Employee(Long employeeId, String name, EmployeeRole role, String userId, Boolean active) {
+    public Employee(Long employeeId, String name, String email, EmployeeRole role, Boolean active) {
         this.employeeId = employeeId;
         this.name = name;
+        this.email = email;
         this.role = role;
-        this.userId = userId;
         this.active = active;
     }
 
@@ -36,20 +36,20 @@ public class Employee {
         this.name = name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public EmployeeRole getRole() {
         return role;
     }
 
     public void setRole(EmployeeRole role) {
         this.role = role;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public Boolean getActive() {
