@@ -13,6 +13,5 @@ public class EmployeeResponse {
     private Long employeeId;
     private String name;
     private EmployeeRole role;
-    private String userId;
     private Boolean active;
 }

@@ -1,9 +1,10 @@
 package com.hackathon.fiap.timesheet.application.core.usecase;
 
 import com.hackathon.fiap.timesheet.application.core.domain.User;
-import com.hackathon.fiap.timesheet.application.core.exptions.EmployeeNotFound;
-import com.hackathon.fiap.timesheet.application.core.exptions.InvalidFormat;
-import com.hackathon.fiap.timesheet.application.core.exptions.UserNotFound;
+import com.hackathon.fiap.timesheet.application.core.exptions.BusinessRuleException;
+import com.hackathon.fiap.timesheet.application.core.exptions.EmployeeNotFoundException;
+import com.hackathon.fiap.timesheet.application.core.exptions.InvalidFormatException;
+import com.hackathon.fiap.timesheet.application.core.exptions.UserNotFoundException;
 import com.hackathon.fiap.timesheet.application.core.ports.in.UserInputPort;
 import com.hackathon.fiap.timesheet.application.core.ports.out.CryptographyOutputPort;
 import com.hackathon.fiap.timesheet.application.core.ports.out.EmployeeOutputPort;
@@ -17,6 +18,7 @@ public class UserUseCase implements UserInputPort {
     private final UserOutputPort userOutputPort;
     private final EmployeeOutputPort employeeOutputPort;
     private final CryptographyOutputPort cryptographyOutputPort;
+    private static final String USER_NOT_FOUND = "User not found";
 
     public UserUseCase(UserOutputPort userOutputPort,
                        EmployeeOutputPort employeeOutputPort,
@@ -27,10 +29,13 @@ public class UserUseCase implements UserInputPort {
     }
 
     @Override
-    public User create(String userName, String password, Long employeeId) {
-        if(!employeeOutputPort.exists(employeeId)) throw new EmployeeNotFound("Employee not found");
-        if (!EmailValidator.isValidEmail(userName)) throw new InvalidFormat("Invalid email");
-        if(!PasswordValidator.isValidPassword(password)) throw new InvalidFormat("Invalid password");
+    public User create(String userId, String password, Long employeeId) {
+        boolean employeeExists = employeeOutputPort.exists(employeeId);
+        if (!employeeExists) throw new EmployeeNotFoundException("Employee not found");
+        if (userOutputPort.exists(userId)) throw new BusinessRuleException("User already exists");
+        if (userOutputPort.getByEmployeeId(employeeId).isPresent()) throw new BusinessRuleException("The employee already has a user");
+        if (!EmailValidator.isValidEmail(userId)) throw new InvalidFormatException("Invalid User Id");
+        if (!PasswordValidator.isValidPassword(password)) throw new InvalidFormatException("Invalid password");
         String passEncrypted = cryptographyOutputPort.encrypt(password);
         User user = new User(userName, passEncrypted, employeeId, true);
         return userOutputPort.save(user);
@@ -38,29 +43,28 @@ public class UserUseCase implements UserInputPort {
 
     @Override
     public void updatePassword(String userId, String password) {
-        if(!PasswordValidator.isValidPassword(password)) throw new InvalidFormat("Invalid password");
-        User user = userOutputPort.get(userId).orElseThrow(() -> new UserNotFound("User not found"));
+        if (!PasswordValidator.isValidPassword(password)) throw new InvalidFormatException("Invalid password");
+        User user = userOutputPort.get(userId).orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND));
         user.setPassword(cryptographyOutputPort.encrypt(password));
         userOutputPort.save(user);
     }
 
     @Override
     public User updateStatus(String userId, Boolean active) {
-        User user = userOutputPort.get(userId).orElseThrow(() -> new UserNotFound("User not found"));
+        User user = userOutputPort.get(userId).orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND));
         user.setActive(active);
         return userOutputPort.save(user);
     }
 
-
     @Override
     public void delete(String userId) {
-        if(!userOutputPort.exists(userId)) throw new UserNotFound("User not found");
+        if (!userOutputPort.exists(userId)) throw new UserNotFoundException(USER_NOT_FOUND);
         userOutputPort.delete(userId);
     }
 
     @Override
     public User get(String userId) {
-        return userOutputPort.get(userId).orElseThrow(() -> new UserNotFound("User not found"));
+        return userOutputPort.get(userId).orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND));
     }
 
     @Override

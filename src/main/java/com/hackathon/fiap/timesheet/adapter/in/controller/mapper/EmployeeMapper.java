@@ -13,7 +13,6 @@ public interface EmployeeMapper {
     EmployeeResponse toEmployeeResponse(Employee employee);
 
     @Mapping(target = "employeeId", ignore = true)
-    @Mapping(target = "userId", ignore = true)
     @Mapping(target = "active", ignore = true)
     Employee toEmployee(EmployeeRequest employeeRequest);
 

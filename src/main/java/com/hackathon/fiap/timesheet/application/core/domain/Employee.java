@@ -6,17 +6,15 @@ public class Employee {
     private Long employeeId;
     private String name;
     private EmployeeRole role;
-    private String userId;
     private Boolean active;
 
     public Employee() {
     }
 
-    public Employee(Long employeeId, String name, EmployeeRole role, String userId, Boolean active) {
+    public Employee(Long employeeId, String name, EmployeeRole role, Boolean active) {
         this.employeeId = employeeId;
         this.name = name;
         this.role = role;
-        this.userId = userId;
         this.active = active;
     }
 
@@ -42,14 +40,6 @@ public class Employee {
 
     public void setRole(EmployeeRole role) {
         this.role = role;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public Boolean getActive() {

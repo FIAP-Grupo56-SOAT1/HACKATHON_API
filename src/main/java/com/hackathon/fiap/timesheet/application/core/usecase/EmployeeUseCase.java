@@ -2,8 +2,8 @@ package com.hackathon.fiap.timesheet.application.core.usecase;
 
 import com.hackathon.fiap.timesheet.application.core.contants.EmployeeRole;
 import com.hackathon.fiap.timesheet.application.core.domain.Employee;
-import com.hackathon.fiap.timesheet.application.core.exptions.EmployeeNotFound;
-import com.hackathon.fiap.timesheet.application.core.exptions.InvalidFormat;
+import com.hackathon.fiap.timesheet.application.core.exptions.EmployeeNotFoundException;
+import com.hackathon.fiap.timesheet.application.core.exptions.InvalidFormatException;
 import com.hackathon.fiap.timesheet.application.core.ports.in.EmployeeInputPort;
 import com.hackathon.fiap.timesheet.application.core.ports.out.EmployeeOutputPort;
 
@@ -39,13 +39,13 @@ public class EmployeeUseCase implements EmployeeInputPort {
 
     @Override
     public void delete(Long employeeId) {
-        if(!employeeOutputPort.exists(employeeId)) throw new EmployeeNotFound("Employee not found");
+        if(!employeeOutputPort.exists(employeeId)) throw new EmployeeNotFoundException("Employee not found");
         employeeOutputPort.delete(employeeId);
     }
 
     @Override
     public Employee get(Long employeeId) {
-        return employeeOutputPort.get(employeeId).orElseThrow(() -> new  EmployeeNotFound("Employee not found"));
+        return employeeOutputPort.get(employeeId).orElseThrow(() -> new EmployeeNotFoundException("Employee not found"));
     }
 
     @Override
@@ -54,7 +54,7 @@ public class EmployeeUseCase implements EmployeeInputPort {
     }
 
     private void validateEmployee(String name) {
-        if(!isValidName(name)) throw new InvalidFormat("Invalid name");
+        if(!isValidName(name)) throw new InvalidFormatException("Invalid name");
     }
 
     private static boolean isValidName(String name) {
