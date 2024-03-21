@@ -8,6 +8,7 @@ import com.hackathon.fiap.timesheet.adapter.in.controller.response.UserResponse;
 import com.hackathon.fiap.timesheet.application.core.domain.User;
 import com.hackathon.fiap.timesheet.application.core.ports.in.UserInputPort;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("users")
+@Tag(name = "Usuários", description = "Controller que gerencia as ações possíveis de um usuário")
 public class UserController {
     private final UserInputPort userInputPort;
     private final UserMapper userMapper;
