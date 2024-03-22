@@ -27,7 +27,7 @@ public class PointRecordController {
     private final PointRecordInputPort pointRecordInputPort;
     private final PointRecordMapper pointRecordMapper;
 
-    @PostMapping("{employeeId}/record-point/{type}")
+    @PostMapping("/employees/{employeeId}/record-point/{type}")
     @Operation(summary = "Registrar ponto", description = "Registra o ponto do funcionário")
     public ResponseEntity<PointRecordResponse> recordPoint(@PathVariable("employeeId") Long employeeId,
                                                            @PathVariable("type") PointRecordType type) {
