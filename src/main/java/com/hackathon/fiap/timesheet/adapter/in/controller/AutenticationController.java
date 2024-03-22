@@ -6,7 +6,6 @@ import com.hackathon.fiap.timesheet.adapter.out.repository.entity.UserEntity;
 import com.hackathon.fiap.timesheet.application.core.ports.in.AutenticationInputPort;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,13 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/login")
 public class AutenticationController {
-
-    @Autowired
-    private AuthenticationManager manager;
+    private final AuthenticationManager manager;
     private final AutenticationInputPort autenticationInputPort;
 
     @PostMapping
-    public ResponseEntity login(@RequestBody @Valid AuthenticationDataRequest dados) {
+    public ResponseEntity<DataTokenJWTReponse> login(@RequestBody @Valid AuthenticationDataRequest dados) {
         var authenticationToken = autenticationInputPort.GetUsernamePasswordAuthenticationToken(dados.login(), dados.senha());
         var authentication = manager.authenticate(authenticationToken);
         var tokenJWT = autenticationInputPort.GenerateTokenJwt((UserEntity) authentication.getPrincipal());

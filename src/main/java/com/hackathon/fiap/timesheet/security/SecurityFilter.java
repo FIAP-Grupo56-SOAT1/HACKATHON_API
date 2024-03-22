@@ -1,6 +1,5 @@
 package com.hackathon.fiap.timesheet.security;
 
-import com.hackathon.fiap.timesheet.adapter.out.repository.UserRepository;
 import com.hackathon.fiap.timesheet.application.core.ports.in.AutenticationInputPort;
 import com.hackathon.fiap.timesheet.application.core.ports.in.UserInputPort;
 import jakarta.servlet.FilterChain;
@@ -8,7 +7,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -18,8 +16,7 @@ import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
-public class SecurityFilter  extends OncePerRequestFilter {
-
+public class SecurityFilter extends OncePerRequestFilter {
     private final AutenticationInputPort autenticationInputPort;
     private final UserInputPort userInputPort;
 
@@ -27,9 +24,7 @@ public class SecurityFilter  extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-
         var tokenJWT = recoverToken(request);
-
         if (tokenJWT != null) {
             var subject = autenticationInputPort.GetSubject(tokenJWT);
             var user = userInputPort.findByUserName(subject);
@@ -37,7 +32,6 @@ public class SecurityFilter  extends OncePerRequestFilter {
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
-
         filterChain.doFilter(request, response);
     }
 
@@ -48,5 +42,4 @@ public class SecurityFilter  extends OncePerRequestFilter {
         }
         return null;
     }
-
 }

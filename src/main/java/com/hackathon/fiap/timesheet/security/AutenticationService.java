@@ -9,13 +9,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class AutenticacaoService implements UserDetailsService {
-
+public class AutenticationService implements UserDetailsService {
     private final UserInputPort userInputPort;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return  userInputPort.findByUserName(username);
-
+        return userInputPort.findByUserName(username);
     }
 }
