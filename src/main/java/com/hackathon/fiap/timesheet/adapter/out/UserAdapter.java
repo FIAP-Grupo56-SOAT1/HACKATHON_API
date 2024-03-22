@@ -48,4 +48,9 @@ public class UserAdapter implements UserOutputPort {
     public List<User> listUsers() {
         return userRepository.findAllByActiveTrue().stream().map(userEntityMapper::toUser).toList();
     }
+
+    @Override
+    public Optional<UserEntity> findByUserName(String userName) {
+        return userRepository.findByUserIdAndActiveTrue(userName);
+    }
 }

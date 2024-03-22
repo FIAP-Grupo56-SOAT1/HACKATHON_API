@@ -10,5 +10,4 @@ public interface AutenticationInputPort {
     String GenerateTokenJwt(UserEntity user);
     String GetSubject(String tokenJWT);
     User GetUserByToken(HttpServletRequest request);
-    String RecuperarToken(HttpServletRequest request);
 }

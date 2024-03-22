@@ -1,5 +1,6 @@
 package com.hackathon.fiap.timesheet.application.core.usecase;
 
+import com.hackathon.fiap.timesheet.adapter.out.repository.entity.UserEntity;
 import com.hackathon.fiap.timesheet.application.core.domain.User;
 import com.hackathon.fiap.timesheet.application.core.exptions.BusinessRuleException;
 import com.hackathon.fiap.timesheet.application.core.exptions.EmployeeNotFoundException;
@@ -13,6 +14,7 @@ import com.hackathon.fiap.timesheet.application.core.validator.EmailValidator;
 import com.hackathon.fiap.timesheet.application.core.validator.PasswordValidator;
 
 import java.util.List;
+import java.util.Optional;
 
 public class UserUseCase implements UserInputPort {
     private final UserOutputPort userOutputPort;
@@ -70,5 +72,14 @@ public class UserUseCase implements UserInputPort {
     @Override
     public List<User> listUsers() {
         return userOutputPort.listUsers();
+    }
+
+    @Override
+    public UserEntity findByUserName(String userName) {
+        Optional<UserEntity> user =  userOutputPort.findByUserName(userName);
+        if(user.isEmpty()){
+            throw new BusinessRuleException("The employee already has a user");
+        }
+        return user.get();
     }
 }
