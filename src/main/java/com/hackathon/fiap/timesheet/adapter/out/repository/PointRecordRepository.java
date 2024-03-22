@@ -15,7 +15,8 @@ public interface PointRecordRepository extends JpaRepository<PointRecordEntity, 
     @Query("SELECT p " +
             "FROM   PointRecord p " +
             "WHERE  p.employee.employeeId = :employeeId " +
-            "AND    p.date BETWEEN :startDate AND :endDate")
+            "AND    p.date BETWEEN :startDate AND :endDate " +
+            "ORDER BY p.date ASC, p.time ASC")
     List<PointRecordEntity> findByEmployeeIdAndMonthAndYear(Long employeeId, LocalDate startDate, LocalDate endDate);
 
     List<PointRecordEntity> findByEmployee_EmployeeId(Long employeeId);

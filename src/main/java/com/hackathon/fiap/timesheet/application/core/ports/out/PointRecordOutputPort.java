@@ -20,4 +20,6 @@ public interface PointRecordOutputPort {
     List<PointRecord> listByEmployeeId(Long employeeId);
 
     List<PointRecord> listByDateAndEmployeeId(Long employeeId, LocalDate date);
+
+    List<PointRecord> findByEmployeeIdAndMonthAndYear(Long employeeId, LocalDate startDate, LocalDate endDate);
 }
