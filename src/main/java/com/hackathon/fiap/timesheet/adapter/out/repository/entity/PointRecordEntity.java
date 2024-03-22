@@ -20,7 +20,7 @@ public class PointRecordEntity {
     @Column(name = "point_record_id")
     private Long pointRecordId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = false)
     private EmployeeEntity employee;
 

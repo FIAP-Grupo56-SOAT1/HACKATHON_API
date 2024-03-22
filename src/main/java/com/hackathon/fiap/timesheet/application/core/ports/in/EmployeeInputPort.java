@@ -6,8 +6,8 @@ import com.hackathon.fiap.timesheet.application.core.domain.Employee;
 import java.util.List;
 
 public interface EmployeeInputPort {
-    Employee create(String name, EmployeeRole role);
-    Employee update(Long employeeId, String name, EmployeeRole role, Boolean active);
+    Employee create(String name, String email, EmployeeRole role);
+    Employee update(Long employeeId, String name, String email, EmployeeRole role, Boolean active);
     void delete(Long employeeId);
     Employee get(Long employeeId);
     List<Employee> listEmployees();

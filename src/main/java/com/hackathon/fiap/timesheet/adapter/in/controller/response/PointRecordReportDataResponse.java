@@ -14,12 +14,12 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PointRecordResponse {
+public class PointRecordReportDataResponse {
     private Long pointRecordId;
-    private Long employeeId;
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate date;
     @JsonFormat(pattern="HH:mm")
     private LocalTime time;
     private PointRecordType type;
+    private Boolean valid;
 }

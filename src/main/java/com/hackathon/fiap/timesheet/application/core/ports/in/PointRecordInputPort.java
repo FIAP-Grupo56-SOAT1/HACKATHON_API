@@ -14,7 +14,11 @@ public interface PointRecordInputPort {
 
     PointRecord get(Long pointRecordId);
 
-    List<PointRecord> list(Long employeeId);
+    List<PointRecord> list();
 
-    List<PointRecord> listByDate(Long employeeId, LocalDate date);
+    List<PointRecord> listByDate(LocalDate date);
+
+    List<PointRecord> listByEmployeeId(Long employeeId);
+
+    List<PointRecord> listByDateAndEmployeeId(Long employeeId, LocalDate date);
 }

@@ -1,5 +1,10 @@
 package com.hackathon.fiap.timesheet.adapter.in.controller;
 
+import com.hackathon.fiap.timesheet.adapter.in.controller.mapper.DefaultDotMirrorReportMapper;
+import com.hackathon.fiap.timesheet.adapter.in.controller.response.DefaultDotMirrorReportResponse;
+import com.hackathon.fiap.timesheet.application.core.ports.in.DotMirrorReportInputPort;
+import com.hackathon.fiap.timesheet.application.core.ports.in.EmployeeInputPort;
+import com.hackathon.fiap.timesheet.application.core.reports.DefaultDotMirrorReportData;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -14,18 +19,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("reports")
 @Tag(name = "Relatórios", description = "Controller que gerencia a emisão de relatório")
 public class ReportController {
+    private final DotMirrorReportInputPort dotMirrorReportInputPort;
+    private final DefaultDotMirrorReportMapper defaultDotMirrorReportMapper;
+    private final EmployeeInputPort employeeInputPort;
 
     @PostMapping("/generate/{employeeId}/dot-mirror")
     @Operation(summary = "Gerar relatório espelho de ponto", description = "Gera o relatório espelho de ponto de um funcionário")
-    public ResponseEntity<Void> generateDotMirrorReport(@PathVariable("employeeId") Long employeeId) {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<DefaultDotMirrorReportResponse> generateDotMirrorReport(@PathVariable("employeeId") Long employeeId) {
+        DefaultDotMirrorReportData defaultDotMirrorReportData = dotMirrorReportInputPort.generate(employeeId);
+        DefaultDotMirrorReportResponse defaultDotMirrorReportResponse = defaultDotMirrorReportMapper.toResponse(defaultDotMirrorReportData);
+        return ResponseEntity.ok(defaultDotMirrorReportResponse);
     }
 
-    @PostMapping("/generate/{employeeId}/dot-mirror/{year}/{month}")
-    @Operation(summary = "Gerar relatório espelho de ponto para um mês e ano especifico", description = "Gera o relatório espelho de ponto de um mês e ano especifico de um funcionário ")
-    public ResponseEntity<Void> generateDotMirrorReport(@PathVariable("employeeId") Long employeeId,
-                                                        @PathVariable("month") Integer month,
-                                                        @PathVariable("year") Integer year) {
+    @PostMapping("/generate/dot-mirror/send-mail/{employeeId}")
+    @Operation(summary = "Envia o relatório espelho de ponto por e-mail", description = "Gera o relatório espelho de ponto e envia por e-mail para o funcionário")
+    public ResponseEntity<Void> generateAndSendByEmail(@PathVariable("employeeId") Long employeeId) {
+        String email = employeeInputPort.get(employeeId).getEmail();
+        dotMirrorReportInputPort.generateAndSendByEmail(email, employeeId);
         return ResponseEntity.ok().build();
     }
 }

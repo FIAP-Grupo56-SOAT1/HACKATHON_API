@@ -1,26 +1,26 @@
-package com.hackathon.fiap.timesheet.application.core.domain;
+package com.hackathon.fiap.timesheet.application.core.valueobject;
 
 import com.hackathon.fiap.timesheet.application.core.contants.PointRecordType;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class PointRecord {
+public class PointRecordReportData {
     private Long pointRecordId;
-    private Long employeeId;
     private LocalDate date;
     private LocalTime time;
     private PointRecordType type;
+    private Boolean valid;
 
-    public PointRecord() {
+    public PointRecordReportData() {
     }
 
-    public PointRecord(Long pointRecordId, Long employeeId, LocalDate date, LocalTime time, PointRecordType type) {
+    public PointRecordReportData(Long pointRecordId, LocalDate date, LocalTime time, PointRecordType type, Boolean valid) {
         this.pointRecordId = pointRecordId;
-        this.employeeId = employeeId;
         this.date = date;
         this.time = time;
         this.type = type;
+        this.valid = valid;
     }
 
     public Long getPointRecordId() {
@@ -29,14 +29,6 @@ public class PointRecord {
 
     public void setPointRecordId(Long pointRecordId) {
         this.pointRecordId = pointRecordId;
-    }
-
-    public Long getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(Long employeeId) {
-        this.employeeId = employeeId;
     }
 
     public LocalDate getDate() {
@@ -61,5 +53,13 @@ public class PointRecord {
 
     public void setType(PointRecordType type) {
         this.type = type;
+    }
+
+    public Boolean getValid() {
+        return valid;
+    }
+
+    public void setValid(Boolean valid) {
+        this.valid = valid;
     }
 }
