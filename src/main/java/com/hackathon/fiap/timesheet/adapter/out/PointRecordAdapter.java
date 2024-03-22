@@ -54,4 +54,12 @@ public class PointRecordAdapter implements PointRecordOutputPort {
     public List<PointRecord> listByDateAndEmployeeId(Long employeeId, LocalDate date) {
         return pointRecordEntityMapper.toPointRecordList(pointRecordRepository.findByEmployee_EmployeeIdAndDate(employeeId, date));
     }
+
+    @Override
+    public List<PointRecord> findByEmployeeIdAndMonthAndYear(Long employeeId, LocalDate startDate, LocalDate endDate) {
+        return pointRecordRepository.findByEmployeeIdAndMonthAndYear(employeeId, startDate, endDate)
+                .stream()
+                .map(pointRecordEntityMapper::toPointRecord)
+                .toList();
+    }
 }

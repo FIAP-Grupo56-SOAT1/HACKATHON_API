@@ -1,8 +1,8 @@
 package com.hackathon.fiap.timesheet.application.core.ports.in;
 
-import com.hackathon.fiap.timesheet.application.core.reports.ReportData;
-import com.hackathon.fiap.timesheet.application.core.reports.ReportGenerator;
+import com.hackathon.fiap.timesheet.application.core.reports.DefaultDotMirrorReportData;
 
-public interface DotMirrorReportInputPort<T, J> {
-    ReportData<T> generate(Long employeeId, ReportGenerator<T, J> reportGenerator);
+public interface DotMirrorReportInputPort {
+    DefaultDotMirrorReportData generate(Long employeeId);
+    void generateAndSendByEmail(String email, Long employeeId);
 }

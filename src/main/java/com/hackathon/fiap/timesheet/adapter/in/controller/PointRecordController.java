@@ -7,6 +7,7 @@ import com.hackathon.fiap.timesheet.adapter.in.controller.response.PointRecordTo
 import com.hackathon.fiap.timesheet.application.core.contants.PointRecordType;
 import com.hackathon.fiap.timesheet.application.core.domain.PointRecord;
 import com.hackathon.fiap.timesheet.application.core.ports.in.PointRecordInputPort;
+import com.hackathon.fiap.timesheet.application.core.valueobject.WorkedHours;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @RestController
@@ -56,8 +58,9 @@ public class PointRecordController {
     @Operation(summary = "Listar pontos", description = "Retorna todos pontos")
     public ResponseEntity<PointRecordTotalResponse> list() {
         List<PointRecord> pointRecord = pointRecordInputPort.list();
+        LocalTime totalWorkedHours = WorkedHours.calculateTotal(pointRecord);
         List<PointRecordResponse> pointRecordResponse = pointRecordMapper.toPointRecordResponse(pointRecord);
-        PointRecordTotalResponse pointRecordTotalResponse = new PointRecordTotalResponse(pointRecordResponse);
+        PointRecordTotalResponse pointRecordTotalResponse = new PointRecordTotalResponse(pointRecordResponse, totalWorkedHours);
         return ResponseEntity.ok(pointRecordTotalResponse);
     }
 
@@ -65,8 +68,9 @@ public class PointRecordController {
     @Operation(summary = "Listar pontos por data", description = "Retorna todos pontos por data")
     public ResponseEntity<PointRecordTotalResponse> listByDate(@PathVariable("date") LocalDate date) {
         List<PointRecord> pointRecord = pointRecordInputPort.listByDate(date);
+        LocalTime totalWorkedHours = WorkedHours.calculateTotal(pointRecord);
         List<PointRecordResponse> pointRecordResponse = pointRecordMapper.toPointRecordResponse(pointRecord);
-        PointRecordTotalResponse pointRecordTotalResponse = new PointRecordTotalResponse(pointRecordResponse);
+        PointRecordTotalResponse pointRecordTotalResponse = new PointRecordTotalResponse(pointRecordResponse, totalWorkedHours);
         return ResponseEntity.ok(pointRecordTotalResponse);
     }
 
@@ -74,18 +78,20 @@ public class PointRecordController {
     @Operation(summary = "Listar pontos", description = "Retorna todos pontos de um funcionário")
     public ResponseEntity<PointRecordTotalResponse> listByEmployeeId(@PathVariable("employeeId") Long employeeId) {
         List<PointRecord> pointRecord = pointRecordInputPort.listByEmployeeId(employeeId);
+        LocalTime totalWorkedHours = WorkedHours.calculateTotal(pointRecord);
         List<PointRecordResponse> pointRecordResponse = pointRecordMapper.toPointRecordResponse(pointRecord);
-        PointRecordTotalResponse pointRecordTotalResponse = new PointRecordTotalResponse(pointRecordResponse);
+        PointRecordTotalResponse pointRecordTotalResponse = new PointRecordTotalResponse(pointRecordResponse, totalWorkedHours);
         return ResponseEntity.ok(pointRecordTotalResponse);
     }
 
-    @GetMapping("list-by-date/{employeeId}/{date}")
+    @GetMapping("/list-by-date/employees/{employeeId}/{date}")
     @Operation(summary = "Listar pontos por data", description = "Retorna todos pontos de um funcionário por data")
     public ResponseEntity<PointRecordTotalResponse> listByDateAndEmployeeId(@PathVariable("employeeId") Long employeeId,
                                                                             @PathVariable("date") LocalDate date) {
         List<PointRecord> pointRecord = pointRecordInputPort.listByDateAndEmployeeId(employeeId, date);
+        LocalTime totalWorkedHours = WorkedHours.calculateTotal(pointRecord);
         List<PointRecordResponse> pointRecordResponse = pointRecordMapper.toPointRecordResponse(pointRecord);
-        PointRecordTotalResponse pointRecordTotalResponse = new PointRecordTotalResponse(pointRecordResponse);
+        PointRecordTotalResponse pointRecordTotalResponse = new PointRecordTotalResponse(pointRecordResponse, totalWorkedHours);
         return ResponseEntity.ok(pointRecordTotalResponse);
     }
 }
