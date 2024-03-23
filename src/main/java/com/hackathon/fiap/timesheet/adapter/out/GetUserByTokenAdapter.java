@@ -14,29 +14,25 @@ import java.util.Optional;
 @Component
 @RequiredArgsConstructor
 public class GetUserByTokenAdapter implements GetUserByTokenOutputPort {
-
     private final GetSubjectOutputPort getSubjectOutputPort;
     private final UserOutputPort userOutputPort;
 
     @Override
-    public User GetUserByToken(HttpServletRequest request) {
-        var tokenJWT = RecuperarToken(request);
+    public User getUserByToken(HttpServletRequest request) {
+        var tokenJWT = recuperarToken(request);
         if (tokenJWT != null) {
-            var subject = getSubjectOutputPort.GetSubject(tokenJWT);
+            var subject = getSubjectOutputPort.getSubject(tokenJWT);
             Optional<User> user = userOutputPort.get(subject);
             return user.get();
         }
         return null;
     }
 
-    public String RecuperarToken(HttpServletRequest request) {
+    private String recuperarToken(HttpServletRequest request) {
         var authorizationHeader = request.getHeader("Authorization");
         if (authorizationHeader != null) {
             return authorizationHeader.replace("Bearer ", "");
         }
         return null;
     }
-
-
-
 }

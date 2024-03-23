@@ -35,18 +35,18 @@ public class UserUseCase implements UserInputPort {
         boolean employeeExists = employeeOutputPort.exists(employeeId);
         if (!employeeExists) throw new EmployeeNotFoundException("Employee not found");
         if (userOutputPort.exists(userId)) throw new BusinessRuleException("User already exists");
-        if (userOutputPort.getByEmployeeId(employeeId).isPresent()) throw new BusinessRuleException("The employee already has a user");
+        if (userOutputPort.getByEmployeeId(employeeId).isPresent())
+            throw new BusinessRuleException("The employee already has a user");
         if (!EmailValidator.isValidEmail(userId)) throw new InvalidFormatException("Invalid User Id");
         if (!PasswordValidator.isValidPassword(password)) throw new InvalidFormatException("Invalid password");
-        String passEncrypted = cryptographyOutputPort.encrypt(password);
-        User user = new User(userId, passEncrypted, employeeId, true);
-        return userOutputPort.save(user);
+        User user = new User(userId, employeeId, true);
+        return userOutputPort.save(user, cryptographyOutputPort.encrypt(password));
     }
 
     @Override
     public void updatePassword(String userId, String password) {
         if (!PasswordValidator.isValidPassword(password)) throw new InvalidFormatException("Invalid password");
-        if(!userOutputPort.exists(userId)) throw new UserNotFoundException(USER_NOT_FOUND);
+        if (!userOutputPort.exists(userId)) throw new UserNotFoundException(USER_NOT_FOUND);
         userOutputPort.setPassword(userId, cryptographyOutputPort.encrypt(password));
     }
 
@@ -75,8 +75,8 @@ public class UserUseCase implements UserInputPort {
 
     @Override
     public UserEntity findByUserName(String userName) {
-        Optional<UserEntity> user =  userOutputPort.findByUserName(userName);
-        if(user.isEmpty()){
+        Optional<UserEntity> user = userOutputPort.findByUserName(userName);
+        if (user.isEmpty()) {
             throw new BusinessRuleException("The employee already has a user");
         }
         return user.get();

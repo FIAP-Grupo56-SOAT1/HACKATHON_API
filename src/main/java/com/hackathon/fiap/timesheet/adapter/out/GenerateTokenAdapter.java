@@ -26,7 +26,7 @@ public class GenerateTokenAdapter implements GenerateTokenOutputPort {
     private String applicationName;
 
     @Override
-    public String GenerateTokenJwt(UserEntity user) {
+    public String generateTokenJwt(UserEntity user) {
 
         try {
             var algoritmo = Algorithm.HMAC256(secret);

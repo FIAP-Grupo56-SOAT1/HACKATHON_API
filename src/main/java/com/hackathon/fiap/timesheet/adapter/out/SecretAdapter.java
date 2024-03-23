@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class SecretAdapter implements SecretOutputPort {
-
     @Value("${api.security.token.secret}")
     private String secret;
+
     @Override
     public String getSecret() {
         return secret;

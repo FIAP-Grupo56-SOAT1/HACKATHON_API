@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UsernamePasswordAuthenticationTokenAdapter implements UsernamePasswordAuthenticationTokenOutputPort {
     @Override
-    public UsernamePasswordAuthenticationToken GetUsernamePasswordAuthenticationToken(String userId, String password) {
+    public UsernamePasswordAuthenticationToken getUsernamePasswordAuthenticationToken(String userId, String password) {
         return new UsernamePasswordAuthenticationToken(userId, password);
     }
 }

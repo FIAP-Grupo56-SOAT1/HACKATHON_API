@@ -12,7 +12,6 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PointRecordRequest {
-    private Long pointRecordId;
     private Long employeeId;
     private LocalDate date;
     private LocalTime time;
