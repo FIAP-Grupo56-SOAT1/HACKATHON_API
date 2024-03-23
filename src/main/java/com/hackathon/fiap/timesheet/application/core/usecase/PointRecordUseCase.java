@@ -2,6 +2,7 @@ package com.hackathon.fiap.timesheet.application.core.usecase;
 
 import com.hackathon.fiap.timesheet.application.core.contants.PointRecordType;
 import com.hackathon.fiap.timesheet.application.core.domain.PointRecord;
+import com.hackathon.fiap.timesheet.application.core.exptions.BusinessRuleException;
 import com.hackathon.fiap.timesheet.application.core.exptions.EmployeeNotFoundException;
 import com.hackathon.fiap.timesheet.application.core.ports.in.PointRecordInputPort;
 import com.hackathon.fiap.timesheet.application.core.ports.out.EmployeeOutputPort;
@@ -10,6 +11,7 @@ import com.hackathon.fiap.timesheet.application.core.ports.out.PointRecordOutput
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 public class PointRecordUseCase implements PointRecordInputPort {
     private final PointRecordOutputPort pointRecordOutputPort;
@@ -23,10 +25,13 @@ public class PointRecordUseCase implements PointRecordInputPort {
     @Override
     public PointRecord recordPoint(Long employeeId, PointRecordType type) {
         validateEmployee(employeeId);
+        LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now();
+        validatePointRecord(employeeId, date, time, type);
         PointRecord pointRecord = new PointRecord();
         pointRecord.setEmployeeId(employeeId);
-        pointRecord.setDate(LocalDate.now());
-        pointRecord.setTime(LocalTime.now());
+        pointRecord.setDate(date);
+        pointRecord.setTime(time);
         pointRecord.setType(type);
         return pointRecordOutputPort.save(pointRecord);
     }
@@ -34,6 +39,11 @@ public class PointRecordUseCase implements PointRecordInputPort {
     @Override
     public PointRecord manualRecordPoint(Long employeeId, LocalDate date, LocalTime time, PointRecordType type) {
         validateEmployee(employeeId);
+        validatePointRecord(employeeId, date, time, type);
+        LocalDate today = LocalDate.now();
+        if (date.isAfter(today)) throw new BusinessRuleException("You cannot register a point in the future");
+        if (date.isBefore(today.minusMonths(3)))
+            throw new BusinessRuleException("You cannot register a point older than 3 months");
         PointRecord pointRecord = new PointRecord();
         pointRecord.setEmployeeId(employeeId);
         pointRecord.setDate(date);
@@ -71,5 +81,29 @@ public class PointRecordUseCase implements PointRecordInputPort {
     private void validateEmployee(Long employeeId) {
         if (Boolean.FALSE.equals(employeeOutputPort.exists(employeeId)))
             throw new EmployeeNotFoundException("Employee not found");
+    }
+
+    private void validatePointRecord(Long employeeId, LocalDate date, LocalTime time, PointRecordType type) {
+        Optional<PointRecord> pointRecord = pointRecordOutputPort.getLastPointRecord(employeeId, date);
+        if (pointRecord.isPresent()) {
+            PointRecordType lastType = pointRecord.get().getType();
+            if (lastType.equals(type)) {
+                PointRecordType nextRecordType = type.equals(PointRecordType.IN) ? PointRecordType.OUT : PointRecordType.IN;
+                String message = String.format("You cannot perform a point registration %s without " +
+                        "first performing a point registration of type %s", lastType, nextRecordType);
+                throw new BusinessRuleException(message);
+            }
+            if (time.isBefore(pointRecord.get().getTime())) {
+                Optional<PointRecord> firstPointRecord = pointRecordOutputPort.getFirstPointRecord(employeeId, date);
+                if (firstPointRecord.isPresent() && time.isBefore(firstPointRecord.get().getTime()) && type.equals(PointRecordType.OUT)) {
+                    String message = String.format("First point record of the day must be of type %s", PointRecordType.IN);
+                    throw new BusinessRuleException(message);
+                }
+            }
+        }
+        if (pointRecord.isEmpty() && type.equals(PointRecordType.OUT)) {
+            String message = String.format("First point record of the day must be of type %s", PointRecordType.IN);
+            throw new BusinessRuleException(message);
+        }
     }
 }
