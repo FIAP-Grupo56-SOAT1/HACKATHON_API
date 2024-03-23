@@ -14,7 +14,6 @@ public class AutenticationUseCase implements AutenticationInputPort {
     private final GenerateTokenOutputPort generateTokenOutputPort;
     private final GetSubjectOutputPort getSubjectOutputPort;
     private final GetUserByTokenOutputPort getUserByTokenOutputPort;
-
     private final UsernamePasswordAuthenticationTokenOutputPort usernamePasswordAuthenticationTokenOutputPort;
 
     public AutenticationUseCase(GenerateTokenOutputPort generateTokenOutputPort,
@@ -29,21 +28,21 @@ public class AutenticationUseCase implements AutenticationInputPort {
 
     @Override
     public UsernamePasswordAuthenticationToken GetUsernamePasswordAuthenticationToken(String userId, String password) {
-        return usernamePasswordAuthenticationTokenOutputPort.GetUsernamePasswordAuthenticationToken(userId, password);
+        return usernamePasswordAuthenticationTokenOutputPort.getUsernamePasswordAuthenticationToken(userId, password);
     }
 
     @Override
     public String GenerateTokenJwt(UserEntity user) {
-        return generateTokenOutputPort.GenerateTokenJwt(user);
+        return generateTokenOutputPort.generateTokenJwt(user);
     }
 
     @Override
     public String GetSubject(String tokenJWT) {
-        return getSubjectOutputPort.GetSubject(tokenJWT);
+        return getSubjectOutputPort.getSubject(tokenJWT);
     }
 
     @Override
     public User GetUserByToken(HttpServletRequest request) {
-        return getUserByTokenOutputPort.GetUserByToken(request);
+        return getUserByTokenOutputPort.getUserByToken(request);
     }
 }

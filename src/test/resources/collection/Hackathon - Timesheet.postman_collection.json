@@ -1,16 +1,29 @@
 {
 	"info": {
-		"_postman_id": "f15cfbcf-bf1f-4a7b-9e7d-68480949324a",
+		"_postman_id": "3d360527-9ecc-437b-960b-cfb5dd99099d",
 		"name": "Hackathon - Timesheet",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "27923200"
 	},
 	"item": [
 		{
-			"name": "users",
+			"name": "login",
 			"item": [
 				{
-					"name": "Criar usuário",
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var token = pm.response.json().token;\r",
+									"pm.collectionVariables.set(\"token\", token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -28,7 +41,96 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"employeeId\": 1,\n  \"password\": \"Soat1.Grupo56\",\n  \"userId\": \"soat1@fiap.com\"\n}",
+							"raw": "{\n  \"login\": \"soat1@fiap.com\",\n  \"password\": \"Soat1.Grupo56\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"login"
+							]
+						},
+						"description": "Realiza o login do usuário"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"login\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"token\": \"<string>\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "Criar usuário",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"employeeId\": \"<long>\",\n  \"password\": \"<string>\",\n  \"userId\": \"<string>\"\n}",
 							"options": {
 								"raw": {
 									"headerFamily": "json",
@@ -305,7 +407,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "",
+									"value": "<string>",
 									"description": "(Required) "
 								}
 							]
@@ -437,7 +539,7 @@
 							"variable": [
 								{
 									"key": "employeeId",
-									"value": "1",
+									"value": "<long>",
 									"description": "(Required) "
 								}
 							]
@@ -483,7 +585,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n  \"employeeId\": \"<long>\",\n  \"employeeName\": \"<string>\",\n  \"month\": \"<integer>\",\n  \"year\": \"<integer>\",\n  \"pointRecords\": [\n    {\n      \"pointRecordId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"OUT\",\n      \"valid\": \"<boolean>\"\n    },\n    {\n      \"pointRecordId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"OUT\",\n      \"valid\": \"<boolean>\"\n    }\n  ],\n  \"totalWorkedTime\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  }\n}"
+							"body": "{\n  \"employeeId\": \"<long>\",\n  \"employeeName\": \"<string>\",\n  \"month\": \"<integer>\",\n  \"year\": \"<integer>\",\n  \"pointRecords\": [\n    {\n      \"pointRecordId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"IN\",\n      \"valid\": \"<boolean>\"\n    },\n    {\n      \"pointRecordId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"OUT\",\n      \"valid\": \"<boolean>\"\n    }\n  ],\n  \"totalWorkedTime\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  }\n}"
 						}
 					]
 				},
@@ -605,7 +707,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n  \"pointRecordResponseList\": [\n    {\n      \"pointRecordId\": \"<long>\",\n      \"employeeId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"OUT\"\n    },\n    {\n      \"pointRecordId\": \"<long>\",\n      \"employeeId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"OUT\"\n    }\n  ],\n  \"totalWorkedHours\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  }\n}"
+							"body": "{\n  \"pointRecordResponseList\": [\n    {\n      \"pointRecordId\": \"<long>\",\n      \"employeeId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"OUT\"\n    },\n    {\n      \"pointRecordId\": \"<long>\",\n      \"employeeId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"IN\"\n    }\n  ],\n  \"totalWorkedHours\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  }\n}"
 						}
 					]
 				},
@@ -625,7 +727,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"pointRecordId\": \"<long>\",\n  \"employeeId\": \"<long>\",\n  \"date\": \"<date>\",\n  \"time\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  },\n  \"type\": \"IN\"\n}",
+							"raw": "{\n  \"employeeId\": \"<long>\",\n  \"date\": \"<date>\",\n  \"time\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  },\n  \"type\": \"IN\"\n}",
 							"options": {
 								"raw": {
 									"headerFamily": "json",
@@ -662,7 +764,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"pointRecordId\": \"<long>\",\n  \"employeeId\": \"<long>\",\n  \"date\": \"<date>\",\n  \"time\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  },\n  \"type\": \"IN\"\n}",
+									"raw": "{\n  \"employeeId\": \"<long>\",\n  \"date\": \"<date>\",\n  \"time\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  },\n  \"type\": \"IN\"\n}",
 									"options": {
 										"raw": {
 											"headerFamily": "json",
@@ -706,26 +808,20 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/point-records/employees/:employeeId/record-point/:type",
+							"raw": "{{baseUrl}}/point-records/employees/record-point/:type",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"point-records",
 								"employees",
-								":employeeId",
 								"record-point",
 								":type"
 							],
 							"variable": [
 								{
-									"key": "employeeId",
-									"value": "<long>",
-									"description": "(Required) "
-								},
-								{
 									"key": "type",
-									"value": "IN",
+									"value": "OUT",
 									"description": "(Required) "
 								}
 							]
@@ -744,21 +840,17 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/point-records/employees/:employeeId/record-point/:type",
+									"raw": "{{baseUrl}}/point-records/employees/record-point/:type",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
 										"point-records",
 										"employees",
-										":employeeId",
 										"record-point",
 										":type"
 									],
 									"variable": [
-										{
-											"key": "employeeId"
-										},
 										{
 											"key": "type"
 										}
@@ -850,7 +942,7 @@
 					]
 				},
 				{
-					"name": "Listar pontos",
+					"name": "Listar pontos por funcionário",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -917,7 +1009,65 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n  \"pointRecordResponseList\": [\n    {\n      \"pointRecordId\": \"<long>\",\n      \"employeeId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"OUT\"\n    },\n    {\n      \"pointRecordId\": \"<long>\",\n      \"employeeId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"OUT\"\n    }\n  ],\n  \"totalWorkedHours\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  }\n}"
+							"body": "{\n  \"pointRecordResponseList\": [\n    {\n      \"pointRecordId\": \"<long>\",\n      \"employeeId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"OUT\"\n    },\n    {\n      \"pointRecordId\": \"<long>\",\n      \"employeeId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"IN\"\n    }\n  ],\n  \"totalWorkedHours\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "Listar todos os pontos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/point-records/list-full",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"point-records",
+								"list-full"
+							]
+						},
+						"description": "Retorna todos os pontos"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/point-records/list-full",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"point-records",
+										"list-full"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"pointRecordId\": \"<long>\",\n    \"employeeId\": \"<long>\",\n    \"date\": \"<date>\",\n    \"time\": {\n      \"hour\": \"<integer>\",\n      \"minute\": \"<integer>\",\n      \"second\": \"<integer>\",\n      \"nano\": \"<integer>\"\n    },\n    \"type\": \"IN\"\n  },\n  {\n    \"pointRecordId\": \"<long>\",\n    \"employeeId\": \"<long>\",\n    \"date\": \"<date>\",\n    \"time\": {\n      \"hour\": \"<integer>\",\n      \"minute\": \"<integer>\",\n      \"second\": \"<integer>\",\n      \"nano\": \"<integer>\"\n    },\n    \"type\": \"OUT\"\n  }\n]"
 						}
 					]
 				},
@@ -944,7 +1094,7 @@
 							"variable": [
 								{
 									"key": "date",
-									"value": "2024-03-22",
+									"value": "<date>",
 									"description": "(Required) "
 								}
 							]
@@ -989,12 +1139,12 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n  \"pointRecordResponseList\": [\n    {\n      \"pointRecordId\": \"<long>\",\n      \"employeeId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"OUT\"\n    },\n    {\n      \"pointRecordId\": \"<long>\",\n      \"employeeId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"OUT\"\n    }\n  ],\n  \"totalWorkedHours\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  }\n}"
+							"body": "{\n  \"pointRecordResponseList\": [\n    {\n      \"pointRecordId\": \"<long>\",\n      \"employeeId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"OUT\"\n    },\n    {\n      \"pointRecordId\": \"<long>\",\n      \"employeeId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"IN\"\n    }\n  ],\n  \"totalWorkedHours\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  }\n}"
 						}
 					]
 				},
 				{
-					"name": "Listar pontos por data",
+					"name": "Listar pontos de funcionário por data",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1073,121 +1223,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n  \"pointRecordResponseList\": [\n    {\n      \"pointRecordId\": \"<long>\",\n      \"employeeId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"OUT\"\n    },\n    {\n      \"pointRecordId\": \"<long>\",\n      \"employeeId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"OUT\"\n    }\n  ],\n  \"totalWorkedHours\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  }\n}"
-						}
-					]
-				}
-			]
-		},
-		{
-			"name": "login",
-			"item": [
-				{
-					"name": "login",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var token = pm.response.json().token;\r",
-									"pm.environment.set(\"token\", token);"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "Accept",
-								"value": "*/*"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"login\": \"soat1@fiap.com\",\n  \"password\": \"Soat1.Grupo56\"\n}",
-							"options": {
-								"raw": {
-									"headerFamily": "json",
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/login",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"login"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "OK",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"login\": \"<string>\",\n  \"senha\": \"<string>\"\n}",
-									"options": {
-										"raw": {
-											"headerFamily": "json",
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/login",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"login"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"token\": \"<string>\"\n}"
+							"body": "{\n  \"pointRecordResponseList\": [\n    {\n      \"pointRecordId\": \"<long>\",\n      \"employeeId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"OUT\"\n    },\n    {\n      \"pointRecordId\": \"<long>\",\n      \"employeeId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"IN\"\n    }\n  ],\n  \"totalWorkedHours\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  }\n}"
 						}
 					]
 				}
@@ -1199,9 +1235,6 @@
 				{
 					"name": "Criar funcionário",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -1215,7 +1248,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"email\": \"teste@teste.com\",\n  \"name\": \"teste\",\n  \"role\": \"TECHNICIAN\"\n}",
+							"raw": "{\n  \"email\": \"<string>\",\n  \"name\": \"<string>\",\n  \"role\": \"MANAGER\"\n}",
 							"options": {
 								"raw": {
 									"headerFamily": "json",
@@ -1251,7 +1284,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"email\": \"<string>\",\n  \"name\": \"<string>\",\n  \"role\": \"TECHNICIAN\"\n}",
+									"raw": "{\n  \"email\": \"<string>\",\n  \"name\": \"<string>\",\n  \"role\": \"MANAGER\"\n}",
 									"options": {
 										"raw": {
 											"headerFamily": "json",
@@ -1279,7 +1312,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n  \"employeeId\": \"<long>\",\n  \"name\": \"<string>\",\n  \"email\": \"<string>\",\n  \"role\": \"BUYER\",\n  \"active\": \"<boolean>\"\n}"
+							"body": "{\n  \"employeeId\": \"<long>\",\n  \"name\": \"<string>\",\n  \"email\": \"<string>\",\n  \"role\": \"TECHNICIAN\",\n  \"active\": \"<boolean>\"\n}"
 						}
 					]
 				},
@@ -1305,7 +1338,7 @@
 							"variable": [
 								{
 									"key": "employeeId",
-									"value": "1",
+									"value": "<long>",
 									"description": "(Required) "
 								}
 							]
@@ -1349,7 +1382,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n  \"employeeId\": \"<long>\",\n  \"name\": \"<string>\",\n  \"email\": \"<string>\",\n  \"role\": \"BUYER\",\n  \"active\": \"<boolean>\"\n}"
+							"body": "{\n  \"employeeId\": \"<long>\",\n  \"name\": \"<string>\",\n  \"email\": \"<string>\",\n  \"role\": \"TECHNICIAN\",\n  \"active\": \"<boolean>\"\n}"
 						}
 					]
 				},
@@ -1447,6 +1480,11 @@
 		{
 			"key": "baseUrl",
 			"value": "http://localhost:8080"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
 		}
 	]
 }

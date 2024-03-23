@@ -5,7 +5,7 @@ CREATE TABLE `employee` (
                             `employee_id` bigint NOT NULL AUTO_INCREMENT,
                             `email` varchar(50) NOT NULL,
                             `name` varchar(50) NOT NULL,
-                            `role` enum('SELLER','BUYER','TECHNICIAN') NOT NULL,
+                            `role` enum('SELLER','BUYER','TECHNICIAN', 'MANAGER') NOT NULL,
                             PRIMARY KEY (`employee_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 

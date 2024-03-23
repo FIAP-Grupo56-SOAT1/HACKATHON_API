@@ -9,6 +9,8 @@ import java.util.Optional;
 public interface UserOutputPort {
     User save(User user);
 
+    User save(User user, String password);
+
     void setPassword(String userId, String password);
 
     void delete(String userId);

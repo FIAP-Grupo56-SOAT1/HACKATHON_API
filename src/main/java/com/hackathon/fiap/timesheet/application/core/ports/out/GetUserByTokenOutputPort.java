@@ -4,5 +4,5 @@ import com.hackathon.fiap.timesheet.application.core.domain.User;
 import jakarta.servlet.http.HttpServletRequest;
 
 public interface GetUserByTokenOutputPort {
-    User GetUserByToken(HttpServletRequest request);
+    User getUserByToken(HttpServletRequest request);
 }

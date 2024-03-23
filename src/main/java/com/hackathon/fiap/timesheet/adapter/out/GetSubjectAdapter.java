@@ -21,7 +21,7 @@ public class GetSubjectAdapter implements GetSubjectOutputPort {
 
 
     @Override
-    public String GetSubject(String tokenJWT) {
+    public String getSubject(String tokenJWT) {
         try {
             var algoritmo = Algorithm.HMAC256(secret);
 
