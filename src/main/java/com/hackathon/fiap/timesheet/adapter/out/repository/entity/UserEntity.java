@@ -31,7 +31,6 @@ public class UserEntity implements UserDetails {
     @Column(nullable = false, columnDefinition = "boolean default true")
     private Boolean active;
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));

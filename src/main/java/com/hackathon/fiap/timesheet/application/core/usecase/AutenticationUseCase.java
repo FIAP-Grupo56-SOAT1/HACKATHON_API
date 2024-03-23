@@ -11,14 +11,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 public class AutenticationUseCase implements AutenticationInputPort {
-    private final  GenerateTokenOutputPort generateTokenOutputPort;
-    private final  GetSubjectOutputPort getSubjectOutputPort;
+    private final GenerateTokenOutputPort generateTokenOutputPort;
+    private final GetSubjectOutputPort getSubjectOutputPort;
     private final GetUserByTokenOutputPort getUserByTokenOutputPort;
 
-    private final UsernamePasswordAuthenticationTokenOutputPort  usernamePasswordAuthenticationTokenOutputPort;
+    private final UsernamePasswordAuthenticationTokenOutputPort usernamePasswordAuthenticationTokenOutputPort;
 
     public AutenticationUseCase(GenerateTokenOutputPort generateTokenOutputPort,
-                                GetSubjectOutputPort getSubjectOutputPort, GetUserByTokenOutputPort getUserByTokenOutputPort, UsernamePasswordAuthenticationTokenOutputPort usernamePasswordAuthenticationTokenOutputPort) {
+                                GetSubjectOutputPort getSubjectOutputPort,
+                                GetUserByTokenOutputPort getUserByTokenOutputPort,
+                                UsernamePasswordAuthenticationTokenOutputPort usernamePasswordAuthenticationTokenOutputPort) {
         this.generateTokenOutputPort = generateTokenOutputPort;
         this.getSubjectOutputPort = getSubjectOutputPort;
         this.getUserByTokenOutputPort = getUserByTokenOutputPort;
@@ -27,7 +29,7 @@ public class AutenticationUseCase implements AutenticationInputPort {
 
     @Override
     public UsernamePasswordAuthenticationToken GetUsernamePasswordAuthenticationToken(String userId, String password) {
-        return usernamePasswordAuthenticationTokenOutputPort.GetUsernamePasswordAuthenticationToken(userId,password);
+        return usernamePasswordAuthenticationTokenOutputPort.GetUsernamePasswordAuthenticationToken(userId, password);
     }
 
     @Override
@@ -44,8 +46,4 @@ public class AutenticationUseCase implements AutenticationInputPort {
     public User GetUserByToken(HttpServletRequest request) {
         return getUserByTokenOutputPort.GetUserByToken(request);
     }
-
-
-
-
 }

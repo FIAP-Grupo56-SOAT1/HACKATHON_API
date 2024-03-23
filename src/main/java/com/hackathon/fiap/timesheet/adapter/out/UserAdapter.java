@@ -25,6 +25,13 @@ public class UserAdapter implements UserOutputPort {
     }
 
     @Override
+    public void setPassword(String userId, String password) {
+        UserEntity userEntity = userRepository.findById(userId).orElseThrow();
+        userEntity.setPassword(password);
+        userRepository.save(userEntity);
+    }
+
+    @Override
     public void delete(String userId) {
         userRepository.deleteById(userId);
     }

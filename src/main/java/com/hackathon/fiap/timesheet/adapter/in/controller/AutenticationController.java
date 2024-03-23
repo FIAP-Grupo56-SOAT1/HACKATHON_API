@@ -21,8 +21,8 @@ public class AutenticationController {
     private final AutenticationInputPort autenticationInputPort;
 
     @PostMapping
-    public ResponseEntity<DataTokenJWTReponse> login(@RequestBody @Valid AuthenticationDataRequest dados) {
-        var authenticationToken = autenticationInputPort.GetUsernamePasswordAuthenticationToken(dados.login(), dados.senha());
+    public ResponseEntity<DataTokenJWTReponse> login(@RequestBody @Valid AuthenticationDataRequest authData) {
+        var authenticationToken = autenticationInputPort.GetUsernamePasswordAuthenticationToken(authData.login(), authData.password());
         var authentication = manager.authenticate(authenticationToken);
         var tokenJWT = autenticationInputPort.GenerateTokenJwt((UserEntity) authentication.getPrincipal());
         return ResponseEntity.ok(new DataTokenJWTReponse(tokenJWT));
