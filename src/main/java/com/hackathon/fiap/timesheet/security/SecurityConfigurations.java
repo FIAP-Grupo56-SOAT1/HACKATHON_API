@@ -28,6 +28,7 @@ public class SecurityConfigurations {
                     req.requestMatchers("/login").permitAll();
                     req.requestMatchers("/users").permitAll();
                     req.requestMatchers("/v3/api-docs").permitAll();
+                    req.requestMatchers("/actuator").permitAll();
                     req.anyRequest().authenticated();
                 }).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
