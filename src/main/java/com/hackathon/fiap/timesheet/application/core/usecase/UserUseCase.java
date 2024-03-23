@@ -46,9 +46,8 @@ public class UserUseCase implements UserInputPort {
     @Override
     public void updatePassword(String userId, String password) {
         if (!PasswordValidator.isValidPassword(password)) throw new InvalidFormatException("Invalid password");
-        User user = userOutputPort.get(userId).orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND));
-        user.setPassword(cryptographyOutputPort.encrypt(password));
-        userOutputPort.save(user);
+        if(!userOutputPort.exists(userId)) throw new UserNotFoundException(USER_NOT_FOUND);
+        userOutputPort.setPassword(userId, cryptographyOutputPort.encrypt(password));
     }
 
     @Override

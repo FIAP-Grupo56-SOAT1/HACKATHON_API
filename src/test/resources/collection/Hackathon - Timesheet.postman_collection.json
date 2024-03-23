@@ -1,0 +1,1452 @@
+{
+	"info": {
+		"_postman_id": "f15cfbcf-bf1f-4a7b-9e7d-68480949324a",
+		"name": "Hackathon - Timesheet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27923200"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "Criar usuário",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"employeeId\": 1,\n  \"password\": \"Soat1.Grupo56\",\n  \"userId\": \"soat1@fiap.com\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						},
+						"description": "Cria um usuário para o funcionário"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"employeeId\": \"<long>\",\n  \"password\": \"<string>\",\n  \"userId\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"userId\": \"<string>\",\n  \"employeeId\": \"<long>\",\n  \"active\": \"<boolean>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Atualizar senha",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"password\": \"<string>\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/change-password",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"change-password"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "<string>",
+									"description": "(Required) "
+								}
+							]
+						},
+						"description": "Atualiza a senha de um usuário"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"password\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/:userId/change-password",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										":userId",
+										"change-password"
+									],
+									"variable": [
+										{
+											"key": "userId"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"userId\": \"<string>\",\n  \"employeeId\": \"<long>\",\n  \"active\": \"<boolean>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Ativar ou desativar usuário",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"active\": \"<boolean>\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/activation",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"activation"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "<string>",
+									"description": "(Required) "
+								}
+							]
+						},
+						"description": "Deixa o usuario como ativo ou inativo um usuário"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"active\": \"<boolean>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/:userId/activation",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										":userId",
+										"activation"
+									],
+									"variable": [
+										{
+											"key": "userId"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Consultar usuário",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "",
+									"description": "(Required) "
+								}
+							]
+						},
+						"description": "Retorna um usuário"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users/:userId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										":userId"
+									],
+									"variable": [
+										{
+											"key": "userId"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"userId\": \"<string>\",\n  \"employeeId\": \"<long>\",\n  \"active\": \"<boolean>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Deletar usuário",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "<string>",
+									"description": "(Required) "
+								}
+							]
+						},
+						"description": "Deleta um usuário"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/users/:userId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										":userId"
+									],
+									"variable": [
+										{
+											"key": "userId"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "reports",
+			"item": [
+				{
+					"name": "Gerar relatório espelho de ponto",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/reports/generate/:employeeId/dot-mirror",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"reports",
+								"generate",
+								":employeeId",
+								"dot-mirror"
+							],
+							"variable": [
+								{
+									"key": "employeeId",
+									"value": "1",
+									"description": "(Required) "
+								}
+							]
+						},
+						"description": "Gera o relatório espelho de ponto de um funcionário"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/reports/generate/:employeeId/dot-mirror",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"reports",
+										"generate",
+										":employeeId",
+										"dot-mirror"
+									],
+									"variable": [
+										{
+											"key": "employeeId"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"employeeId\": \"<long>\",\n  \"employeeName\": \"<string>\",\n  \"month\": \"<integer>\",\n  \"year\": \"<integer>\",\n  \"pointRecords\": [\n    {\n      \"pointRecordId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"OUT\",\n      \"valid\": \"<boolean>\"\n    },\n    {\n      \"pointRecordId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"OUT\",\n      \"valid\": \"<boolean>\"\n    }\n  ],\n  \"totalWorkedTime\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "Envia o relatório espelho de ponto por e-mail",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/reports/generate/dot-mirror/send-mail/:employeeId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"reports",
+								"generate",
+								"dot-mirror",
+								"send-mail",
+								":employeeId"
+							],
+							"variable": [
+								{
+									"key": "employeeId",
+									"value": "<long>",
+									"description": "(Required) "
+								}
+							]
+						},
+						"description": "Gera o relatório espelho de ponto e envia por e-mail para o funcionário"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/reports/generate/dot-mirror/send-mail/:employeeId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"reports",
+										"generate",
+										"dot-mirror",
+										"send-mail",
+										":employeeId"
+									],
+									"variable": [
+										{
+											"key": "employeeId"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "point-records",
+			"item": [
+				{
+					"name": "Listar pontos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/point-records",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"point-records"
+							]
+						},
+						"description": "Retorna todos pontos"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/point-records",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"point-records"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"pointRecordResponseList\": [\n    {\n      \"pointRecordId\": \"<long>\",\n      \"employeeId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"OUT\"\n    },\n    {\n      \"pointRecordId\": \"<long>\",\n      \"employeeId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"OUT\"\n    }\n  ],\n  \"totalWorkedHours\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "Registrar ponto manual",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"pointRecordId\": \"<long>\",\n  \"employeeId\": \"<long>\",\n  \"date\": \"<date>\",\n  \"time\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  },\n  \"type\": \"IN\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/point-records/manual-record-point",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"point-records",
+								"manual-record-point"
+							]
+						},
+						"description": "Registra o ponto do funcionário manualmente"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"pointRecordId\": \"<long>\",\n  \"employeeId\": \"<long>\",\n  \"date\": \"<date>\",\n  \"time\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  },\n  \"type\": \"IN\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/point-records/manual-record-point",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"point-records",
+										"manual-record-point"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"pointRecordId\": \"<long>\",\n  \"employeeId\": \"<long>\",\n  \"date\": \"<date>\",\n  \"time\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  },\n  \"type\": \"IN\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Registrar ponto",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/point-records/employees/:employeeId/record-point/:type",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"point-records",
+								"employees",
+								":employeeId",
+								"record-point",
+								":type"
+							],
+							"variable": [
+								{
+									"key": "employeeId",
+									"value": "<long>",
+									"description": "(Required) "
+								},
+								{
+									"key": "type",
+									"value": "IN",
+									"description": "(Required) "
+								}
+							]
+						},
+						"description": "Registra o ponto do funcionário"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/point-records/employees/:employeeId/record-point/:type",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"point-records",
+										"employees",
+										":employeeId",
+										"record-point",
+										":type"
+									],
+									"variable": [
+										{
+											"key": "employeeId"
+										},
+										{
+											"key": "type"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"pointRecordId\": \"<long>\",\n  \"employeeId\": \"<long>\",\n  \"date\": \"<date>\",\n  \"time\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  },\n  \"type\": \"IN\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Consultar ponto",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/point-records/:pointRecordId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"point-records",
+								":pointRecordId"
+							],
+							"variable": [
+								{
+									"key": "pointRecordId",
+									"value": "<long>",
+									"description": "(Required) "
+								}
+							]
+						},
+						"description": "Retorna um ponto"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/point-records/:pointRecordId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"point-records",
+										":pointRecordId"
+									],
+									"variable": [
+										{
+											"key": "pointRecordId"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"pointRecordId\": \"<long>\",\n  \"employeeId\": \"<long>\",\n  \"date\": \"<date>\",\n  \"time\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  },\n  \"type\": \"IN\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Listar pontos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/point-records/list/:employeeId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"point-records",
+								"list",
+								":employeeId"
+							],
+							"variable": [
+								{
+									"key": "employeeId",
+									"value": "<long>",
+									"description": "(Required) "
+								}
+							]
+						},
+						"description": "Retorna todos pontos de um funcionário"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/point-records/list/:employeeId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"point-records",
+										"list",
+										":employeeId"
+									],
+									"variable": [
+										{
+											"key": "employeeId"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"pointRecordResponseList\": [\n    {\n      \"pointRecordId\": \"<long>\",\n      \"employeeId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"OUT\"\n    },\n    {\n      \"pointRecordId\": \"<long>\",\n      \"employeeId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"OUT\"\n    }\n  ],\n  \"totalWorkedHours\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "Listar pontos por data",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/point-records/list-by-date/:date",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"point-records",
+								"list-by-date",
+								":date"
+							],
+							"variable": [
+								{
+									"key": "date",
+									"value": "2024-03-22",
+									"description": "(Required) "
+								}
+							]
+						},
+						"description": "Retorna todos pontos por data"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/point-records/list-by-date/:date",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"point-records",
+										"list-by-date",
+										":date"
+									],
+									"variable": [
+										{
+											"key": "date"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"pointRecordResponseList\": [\n    {\n      \"pointRecordId\": \"<long>\",\n      \"employeeId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"OUT\"\n    },\n    {\n      \"pointRecordId\": \"<long>\",\n      \"employeeId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"OUT\"\n    }\n  ],\n  \"totalWorkedHours\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "Listar pontos por data",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/point-records/list-by-date/employees/:employeeId/:date",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"point-records",
+								"list-by-date",
+								"employees",
+								":employeeId",
+								":date"
+							],
+							"variable": [
+								{
+									"key": "employeeId",
+									"value": "<long>",
+									"description": "(Required) "
+								},
+								{
+									"key": "date",
+									"value": "<date>",
+									"description": "(Required) "
+								}
+							]
+						},
+						"description": "Retorna todos pontos de um funcionário por data"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/point-records/list-by-date/employees/:employeeId/:date",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"point-records",
+										"list-by-date",
+										"employees",
+										":employeeId",
+										":date"
+									],
+									"variable": [
+										{
+											"key": "employeeId"
+										},
+										{
+											"key": "date"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"pointRecordResponseList\": [\n    {\n      \"pointRecordId\": \"<long>\",\n      \"employeeId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"OUT\"\n    },\n    {\n      \"pointRecordId\": \"<long>\",\n      \"employeeId\": \"<long>\",\n      \"date\": \"<date>\",\n      \"time\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"type\": \"OUT\"\n    }\n  ],\n  \"totalWorkedHours\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "login",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var token = pm.response.json().token;\r",
+									"pm.environment.set(\"token\", token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"login\": \"soat1@fiap.com\",\n  \"password\": \"Soat1.Grupo56\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"login\": \"<string>\",\n  \"senha\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"token\": \"<string>\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "employees",
+			"item": [
+				{
+					"name": "Criar funcionário",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"teste@teste.com\",\n  \"name\": \"teste\",\n  \"role\": \"TECHNICIAN\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/employees",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"employees"
+							]
+						},
+						"description": "Cria um funcionário"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"<string>\",\n  \"name\": \"<string>\",\n  \"role\": \"TECHNICIAN\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/employees",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"employees"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"employeeId\": \"<long>\",\n  \"name\": \"<string>\",\n  \"email\": \"<string>\",\n  \"role\": \"BUYER\",\n  \"active\": \"<boolean>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Consultar funcionário",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/employees/:employeeId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"employees",
+								":employeeId"
+							],
+							"variable": [
+								{
+									"key": "employeeId",
+									"value": "1",
+									"description": "(Required) "
+								}
+							]
+						},
+						"description": "Consulta um funcionário"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/employees/:employeeId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"employees",
+										":employeeId"
+									],
+									"variable": [
+										{
+											"key": "employeeId"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"employeeId\": \"<long>\",\n  \"name\": \"<string>\",\n  \"email\": \"<string>\",\n  \"role\": \"BUYER\",\n  \"active\": \"<boolean>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Deletar funcionário",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/employees/:employeeId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"employees",
+								":employeeId"
+							],
+							"variable": [
+								{
+									"key": "employeeId",
+									"value": "<long>",
+									"description": "(Required) "
+								}
+							]
+						},
+						"description": "Deleta um funcionário"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/employees/:employeeId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"employees",
+										":employeeId"
+									],
+									"variable": [
+										{
+											"key": "employeeId"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		}
+	]
+}
