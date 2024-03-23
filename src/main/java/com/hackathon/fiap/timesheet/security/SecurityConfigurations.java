@@ -30,6 +30,7 @@ public class SecurityConfigurations {
                     req.requestMatchers("/v3/api-docs").permitAll();
                     req.requestMatchers("/actuator").permitAll();
                     req.requestMatchers("/actuator/health").permitAll();
+                    req.requestMatchers("/swagger-ui/index.html").permitAll();
                     req.anyRequest().authenticated();
                 }).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

@@ -21,9 +21,12 @@ public class GenerateTokenAdapter implements GenerateTokenOutputPort {
     @Value("${api.security.token.secret}")
     private String secret;
 
-
     @Value("${spring.application.name}")
     private String applicationName;
+
+    @Value("${api.security.token.expirationMinutes}")
+    private int expirationMinutes;
+
 
     @Override
     public String generateTokenJwt(UserEntity user) {
@@ -41,6 +44,6 @@ public class GenerateTokenAdapter implements GenerateTokenOutputPort {
     }
 
     private Instant dataExpiracao() {
-        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+        return LocalDateTime.now().plusMinutes(expirationMinutes).toInstant(ZoneOffset.of("-03:00"));
     }
 }

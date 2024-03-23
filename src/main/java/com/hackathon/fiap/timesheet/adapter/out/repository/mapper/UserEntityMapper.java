@@ -8,6 +8,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", uses = {EmployeeEntityMapper.class})
 public interface UserEntityMapper {
     @Mapping(target = "password", ignore = true)
+    @Mapping(target = "authorities", ignore = true)
     @Mapping(source = "employeeId", target = "employee.employeeId")
     @Mapping(source = "active", target = "active")
     UserEntity toUserEntity(User user);

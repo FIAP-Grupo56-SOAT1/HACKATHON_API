@@ -62,4 +62,14 @@ public class PointRecordAdapter implements PointRecordOutputPort {
                 .map(pointRecordEntityMapper::toPointRecord)
                 .toList();
     }
+
+    @Override
+    public Optional<PointRecord> getFirstPointRecord(Long employeeId, LocalDate date) {
+        return pointRecordRepository.findFirtsRecordByEmployeeId(employeeId, date).map(pointRecordEntityMapper::toPointRecord);
+    }
+
+    @Override
+    public Optional<PointRecord> getLastPointRecord(Long employeeId, LocalDate date) {
+        return pointRecordRepository.findLastRecordByEmployeeId(employeeId, date).map(pointRecordEntityMapper::toPointRecord);
+    }
 }
