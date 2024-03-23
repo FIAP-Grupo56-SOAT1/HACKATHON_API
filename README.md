@@ -2,6 +2,8 @@
   <h1>FIAP Hackathon SOAT1</h1>
 </div>
 
+![Logo](imgs/postech.gif)
+
 ## Timesheet
 ![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/FIAP-Grupo56-SOAT1/MICROSERV_PEDIDO_FAST-EATS/main-pipeline.yml?logo=github)
 
