@@ -1,12 +1,13 @@
 package com.hackathon.fiap.timesheet.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,24 +16,21 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfigurations {
+    private final SecurityFilter securityFilter;
 
-
-    @Autowired
-    private SecurityFilter securityFilter;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return
-                http.csrf(csrf -> csrf.disable())
-                        .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                        .authorizeHttpRequests(req -> {
-                            req.requestMatchers("/login").permitAll();
-                            req.requestMatchers("/users").permitAll();
-                            req.requestMatchers("/v3/api-docs").permitAll();
-                            req.requestMatchers("/**").permitAll();
-                            req.anyRequest().authenticated();
-                        }).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
-                        .build();
+        return http.csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(req -> {
+                    req.requestMatchers("/login").permitAll();
+                    req.requestMatchers("/users").permitAll();
+                    req.requestMatchers("/v3/api-docs").permitAll();
+                    req.anyRequest().authenticated();
+                }).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
     }
 
     @Bean
@@ -44,5 +42,4 @@ public class SecurityConfigurations {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }

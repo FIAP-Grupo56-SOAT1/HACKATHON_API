@@ -1,5 +1,6 @@
 package com.hackathon.fiap.timesheet.application.core.ports.out;
 
+import com.hackathon.fiap.timesheet.adapter.out.repository.entity.UserEntity;
 import com.hackathon.fiap.timesheet.application.core.domain.User;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface UserOutputPort {
     Boolean exists(String userId);
 
     List<User> listUsers();
+
+    Optional<UserEntity> findByUserName(String userName);
 }
