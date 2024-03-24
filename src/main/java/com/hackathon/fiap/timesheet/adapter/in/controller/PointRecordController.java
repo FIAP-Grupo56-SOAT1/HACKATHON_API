@@ -79,11 +79,7 @@ public class PointRecordController {
     public ResponseEntity<PointRecordTotalResponse> listByDate(@PathVariable("date") LocalDate date,
                                                                HttpServletRequest request) {
         Long userEmployeeId = getUserEmployeeId(request);
-        List<PointRecord> pointRecord = pointRecordInputPort.listByDateAndEmployeeId(userEmployeeId, date);
-        LocalTime totalWorkedHours = WorkedHours.calculateTotal(pointRecord);
-        List<PointRecordResponse> pointRecordResponse = pointRecordMapper.toPointRecordResponse(pointRecord);
-        PointRecordTotalResponse pointRecordTotalResponse = new PointRecordTotalResponse(pointRecordResponse, totalWorkedHours);
-        return ResponseEntity.ok(pointRecordTotalResponse);
+        return getPointRecordTotalResponseResponseEntity(userEmployeeId, date);
     }
 
     @GetMapping("list/{employeeId}")
