@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 public class EmployeeUseCase implements EmployeeInputPort {
     private final EmployeeOutputPort employeeOutputPort;
-    private static final Pattern EMP_NAME_PATTERN = Pattern.compile("^[a-zA-Z]+(\\s[a-zA-Z]+)?+$");
+    private static final Pattern EMP_NAME_PATTERN = Pattern.compile("^[a-zA-Z\\s]+$");
 
     public EmployeeUseCase(EmployeeOutputPort employeeOutputPort) {
         this.employeeOutputPort = employeeOutputPort;
