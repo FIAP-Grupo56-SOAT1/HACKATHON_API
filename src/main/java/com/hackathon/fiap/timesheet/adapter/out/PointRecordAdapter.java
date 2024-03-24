@@ -32,7 +32,12 @@ public class PointRecordAdapter implements PointRecordOutputPort {
 
     @Override
     public Optional<PointRecord> get(Long pointRecordId) {
-        return pointRecordRepository.findById(pointRecordId).map(pointRecordEntityMapper::toPointRecord);
+        Optional<PointRecordEntity> pont =  pointRecordRepository.findById(pointRecordId);
+        System.out.println("PointRecordEntity: " + pont.get().getDate());
+        PointRecord pointRecord = pointRecordEntityMapper.toPointRecord(pont.get());
+        System.out.println("PointRecord: " + pointRecord.getDate());
+        return Optional.of(pointRecord);
+        //return pointRecordRepository.findById(pointRecordId).map(pointRecordEntityMapper::toPointRecord);
     }
 
     @Override
