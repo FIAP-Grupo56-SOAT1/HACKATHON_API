@@ -16,4 +16,5 @@ ENV SENDER_MAIL=wilianfiap@gmail.com
 ENV SENDER_MAIL_PASSWORD="cczi ddwy seen kygq"
 ENV MAIL_HOST=smtp.gmail.com
 ENV MAIL_PORT=587
+ENV TZ=America/Sao_Paulo
 ENTRYPOINT ["java", "-jar","/home/app/target/timesheet-1.0.0-SNAPSHOT.jar"]

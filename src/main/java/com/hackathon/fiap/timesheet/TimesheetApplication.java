@@ -15,7 +15,6 @@ public class TimesheetApplication {
     @PostConstruct
     public void init() {
         TimeZone.setDefault(TimeZone.getTimeZone(timezone));
-        System.out.println("Application running in timezone : " + timezone);
     }
 
     public static void main(String[] args) {
