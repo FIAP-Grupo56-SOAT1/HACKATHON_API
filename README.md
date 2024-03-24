@@ -13,7 +13,7 @@
 
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=FIAP-Grupo56-SOAT1_HACKATHON_API&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=FIAP-Grupo56-SOAT1_HACKATHON_API) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=FIAP-Grupo56-SOAT1_HACKATHON_API&metric=bugs)](https://sonarcloud.io/summary/new_code?id=FIAP-Grupo56-SOAT1_HACKATHON_API) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=FIAP-Grupo56-SOAT1_HACKATHON_API&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=FIAP-Grupo56-SOAT1_HACKATHON_API)
 
-O Timesheet é um aplicativo de registro de ponto desenvolvido para uma hackathon como parte do programa de pós-graduação em Arquitetura de Software. O aplicativo facilita o rastreamento e gerenciamento eficientes do tempo para várias tarefas e projetos.
+O Timesheet é um aplicativo de registro de ponto desenvolvido para uma hackathon como parte do programa de pós-graduação em Arquitetura de Software. O aplicativo facilita o registro de pontos dos funcionários e gerar relatórios referentes aos registros de ponto.
 
 ## Funcionalidades
 - **Registro de Ponto**: Os usuários podem registrar suas horas de trabalho.
