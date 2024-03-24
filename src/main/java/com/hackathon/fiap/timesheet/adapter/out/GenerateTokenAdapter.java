@@ -3,6 +3,7 @@ package com.hackathon.fiap.timesheet.adapter.out;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.hackathon.fiap.timesheet.adapter.out.exception.GenerateTokenException;
 import com.hackathon.fiap.timesheet.adapter.out.repository.entity.UserEntity;
 import com.hackathon.fiap.timesheet.application.core.ports.out.GenerateTokenOutputPort;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +40,7 @@ public class GenerateTokenAdapter implements GenerateTokenOutputPort {
                     .withExpiresAt(dataExpiracao())
                     .sign(algoritmo);
         } catch (JWTCreationException exception) {
-            throw new RuntimeException("erro ao gerar token jwt", exception);
+            throw new GenerateTokenException("Error generating JWT token", exception);
         }
     }
 

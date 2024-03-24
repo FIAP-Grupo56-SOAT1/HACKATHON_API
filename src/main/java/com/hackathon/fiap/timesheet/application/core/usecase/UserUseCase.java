@@ -34,7 +34,7 @@ public class UserUseCase implements UserInputPort {
     public User create(String userId, String password, Long employeeId) {
         boolean employeeExists = employeeOutputPort.exists(employeeId);
         if (!employeeExists) throw new EmployeeNotFoundException("Employee not found");
-        if (userOutputPort.exists(userId)) throw new BusinessRuleException("User already exists");
+        if (Boolean.TRUE.equals(userOutputPort.exists(userId))) throw new BusinessRuleException("User already exists");
         if (userOutputPort.getByEmployeeId(employeeId).isPresent())
             throw new BusinessRuleException("The employee already has a user");
         if (!EmailValidator.isValidEmail(userId)) throw new InvalidFormatException("Invalid User Id");
@@ -46,7 +46,7 @@ public class UserUseCase implements UserInputPort {
     @Override
     public void updatePassword(String userId, String password) {
         if (!PasswordValidator.isValidPassword(password)) throw new InvalidFormatException("Invalid password");
-        if (!userOutputPort.exists(userId)) throw new UserNotFoundException(USER_NOT_FOUND);
+        if (Boolean.FALSE.equals(userOutputPort.exists(userId))) throw new UserNotFoundException(USER_NOT_FOUND);
         userOutputPort.setPassword(userId, cryptographyOutputPort.encrypt(password));
     }
 
@@ -59,7 +59,7 @@ public class UserUseCase implements UserInputPort {
 
     @Override
     public void delete(String userId) {
-        if (!userOutputPort.exists(userId)) throw new UserNotFoundException(USER_NOT_FOUND);
+        if (Boolean.FALSE.equals(userOutputPort.exists(userId))) throw new UserNotFoundException(USER_NOT_FOUND);
         userOutputPort.delete(userId);
     }
 

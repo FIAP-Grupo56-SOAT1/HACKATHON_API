@@ -1,6 +1,6 @@
 package com.hackathon.fiap.timesheet.application.core.usecase;
 
-import com.hackathon.fiap.timesheet.application.core.contants.PointRecordType;
+import com.hackathon.fiap.timesheet.application.core.constant.PointRecordType;
 import com.hackathon.fiap.timesheet.application.core.domain.Employee;
 import com.hackathon.fiap.timesheet.application.core.domain.PointRecord;
 import com.hackathon.fiap.timesheet.application.core.exptions.EmployeeNotFoundException;
@@ -22,7 +22,6 @@ public class DotMirrorReportUseCase implements DotMirrorReportInputPort {
     private final EmployeeOutputPort employeeOutputPort;
     private final PointRecordOutputPort pointRecordOutputPort;
     private final SendDotMirrorEmailOutputPort sendDotMirrorEmailOutputPort;
-
 
     public DotMirrorReportUseCase(EmployeeOutputPort employeeOutputPort,
                                   PointRecordOutputPort pointRecordOutputPort,
@@ -64,10 +63,10 @@ public class DotMirrorReportUseCase implements DotMirrorReportInputPort {
         sendDotMirrorEmailOutputPort.send(email, defaultDotMirrorReportData);
     }
 
-
     private List<PointRecord> filterInAndOutPairs(List<PointRecord> pointRecords) {
         List<PointRecord> filteredRecords = new ArrayList<>();
-        for (int i = 0; i < pointRecords.size() - 1; i++) {
+        int i = 0;
+        while (i < pointRecords.size() - 1) {
             PointRecord currentRecord = pointRecords.get(i);
             PointRecord nextRecord = pointRecords.get(i + 1);
             if (currentRecord.getType() == PointRecordType.IN && nextRecord.getType() == PointRecordType.OUT) {
@@ -75,6 +74,7 @@ public class DotMirrorReportUseCase implements DotMirrorReportInputPort {
                 filteredRecords.add(nextRecord);
                 i++;
             }
+            i++;
         }
         return filteredRecords;
     }
@@ -88,22 +88,21 @@ public class DotMirrorReportUseCase implements DotMirrorReportInputPort {
             reportData.setDate(currentRecord.getDate());
             reportData.setTime(currentRecord.getTime());
             reportData.setType(currentRecord.getType());
-            if (i < pointRecords.size() - 1) {
-                PointRecord nextRecord = pointRecords.get(i + 1);
-                if (currentRecord.getType() == PointRecordType.IN && nextRecord.getType() == PointRecordType.OUT) {
-                    reportData.setValid(true);
-                } else if (currentRecord.getType() == PointRecordType.OUT && pointRecords.get(i - 1).getType() == PointRecordType.IN) {
-                    reportData.setValid(true);
-                } else {
-                    reportData.setValid(false);
-                }
-            } else if (currentRecord.getType() == PointRecordType.OUT && pointRecords.get(i - 1).getType() == PointRecordType.IN) {
-                reportData.setValid(true);
-            } else {
-                reportData.setValid(false);
-            }
+            reportData.setValid(validateRecord(currentRecord, pointRecords));
             reportDataList.add(reportData);
         }
         return reportDataList;
+    }
+
+    private boolean validateRecord(PointRecord currentRecord, List<PointRecord> pointRecords) {
+        int i = pointRecords.indexOf(currentRecord);
+        if (i < pointRecords.size() - 1) {
+            PointRecord nextRecord = pointRecords.get(i + 1);
+            if (currentRecord.getType() == PointRecordType.IN && nextRecord.getType() == PointRecordType.OUT) {
+                return true;
+            } else
+                return currentRecord.getType() == PointRecordType.OUT && pointRecords.get(i - 1).getType() == PointRecordType.IN;
+        } else
+            return currentRecord.getType() == PointRecordType.OUT && pointRecords.get(i - 1).getType() == PointRecordType.IN;
     }
 }

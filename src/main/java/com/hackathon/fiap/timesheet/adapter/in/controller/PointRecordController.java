@@ -4,8 +4,8 @@ import com.hackathon.fiap.timesheet.adapter.in.controller.mapper.PointRecordMapp
 import com.hackathon.fiap.timesheet.adapter.in.controller.request.PointRecordRequest;
 import com.hackathon.fiap.timesheet.adapter.in.controller.response.PointRecordResponse;
 import com.hackathon.fiap.timesheet.adapter.in.controller.response.PointRecordTotalResponse;
-import com.hackathon.fiap.timesheet.application.core.contants.EmployeeRole;
-import com.hackathon.fiap.timesheet.application.core.contants.PointRecordType;
+import com.hackathon.fiap.timesheet.application.core.constant.EmployeeRole;
+import com.hackathon.fiap.timesheet.application.core.constant.PointRecordType;
 import com.hackathon.fiap.timesheet.application.core.domain.PointRecord;
 import com.hackathon.fiap.timesheet.application.core.ports.in.AutenticationInputPort;
 import com.hackathon.fiap.timesheet.application.core.ports.in.EmployeeInputPort;
@@ -127,7 +127,7 @@ public class PointRecordController {
     }
 
     private Long getUserEmployeeId(HttpServletRequest request) {
-        return autenticationInputPort.GetUserByToken(request).getEmployeeId();
+        return autenticationInputPort.getUserByToken(request).getEmployeeId();
     }
 
     private boolean isManager(Long employeeId) {

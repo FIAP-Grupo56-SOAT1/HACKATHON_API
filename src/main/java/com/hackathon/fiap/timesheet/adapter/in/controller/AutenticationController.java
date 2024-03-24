@@ -26,9 +26,9 @@ public class AutenticationController {
     @PostMapping
     @Operation(summary = "Login", description = "Realiza o login do usuário")
     public ResponseEntity<DataTokenJWTReponse> login(@RequestBody @Valid AuthenticationDataRequest authData) {
-        var authenticationToken = autenticationInputPort.GetUsernamePasswordAuthenticationToken(authData.login(), authData.password());
+        var authenticationToken = autenticationInputPort.getUsernamePasswordAuthenticationToken(authData.login(), authData.password());
         var authentication = manager.authenticate(authenticationToken);
-        var tokenJWT = autenticationInputPort.GenerateTokenJwt((UserEntity) authentication.getPrincipal());
+        var tokenJWT = autenticationInputPort.generateTokenJwt((UserEntity) authentication.getPrincipal());
         return ResponseEntity.ok(new DataTokenJWTReponse(tokenJWT));
     }
 }

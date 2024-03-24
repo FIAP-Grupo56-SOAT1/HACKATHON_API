@@ -2,7 +2,7 @@ package com.hackathon.fiap.timesheet.adapter.in.controller;
 
 import com.hackathon.fiap.timesheet.adapter.in.controller.mapper.DefaultDotMirrorReportMapper;
 import com.hackathon.fiap.timesheet.adapter.in.controller.response.DefaultDotMirrorReportResponse;
-import com.hackathon.fiap.timesheet.application.core.contants.EmployeeRole;
+import com.hackathon.fiap.timesheet.application.core.constant.EmployeeRole;
 import com.hackathon.fiap.timesheet.application.core.ports.in.AutenticationInputPort;
 import com.hackathon.fiap.timesheet.application.core.ports.in.DotMirrorReportInputPort;
 import com.hackathon.fiap.timesheet.application.core.ports.in.EmployeeInputPort;
@@ -50,7 +50,7 @@ public class ReportController {
     }
 
     private Long getUserEmployeeId(HttpServletRequest request) {
-        return autenticationInputPort.GetUserByToken(request).getEmployeeId();
+        return autenticationInputPort.getUserByToken(request).getEmployeeId();
     }
 
     private boolean isManager(Long employeeId) {

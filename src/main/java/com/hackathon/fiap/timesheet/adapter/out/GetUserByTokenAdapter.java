@@ -23,7 +23,7 @@ public class GetUserByTokenAdapter implements GetUserByTokenOutputPort {
         if (tokenJWT != null) {
             var subject = getSubjectOutputPort.getSubject(tokenJWT);
             Optional<User> user = userOutputPort.get(subject);
-            return user.get();
+            return user.orElse(null);
         }
         return null;
     }

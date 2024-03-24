@@ -27,22 +27,22 @@ public class AutenticationUseCase implements AutenticationInputPort {
     }
 
     @Override
-    public UsernamePasswordAuthenticationToken GetUsernamePasswordAuthenticationToken(String userId, String password) {
+    public UsernamePasswordAuthenticationToken getUsernamePasswordAuthenticationToken(String userId, String password) {
         return usernamePasswordAuthenticationTokenOutputPort.getUsernamePasswordAuthenticationToken(userId, password);
     }
 
     @Override
-    public String GenerateTokenJwt(UserEntity user) {
+    public String generateTokenJwt(UserEntity user) {
         return generateTokenOutputPort.generateTokenJwt(user);
     }
 
     @Override
-    public String GetSubject(String tokenJWT) {
+    public String getSubject(String tokenJWT) {
         return getSubjectOutputPort.getSubject(tokenJWT);
     }
 
     @Override
-    public User GetUserByToken(HttpServletRequest request) {
+    public User getUserByToken(HttpServletRequest request) {
         return getUserByTokenOutputPort.getUserByToken(request);
     }
 }

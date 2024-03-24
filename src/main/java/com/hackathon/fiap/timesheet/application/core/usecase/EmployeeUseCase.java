@@ -1,6 +1,6 @@
 package com.hackathon.fiap.timesheet.application.core.usecase;
 
-import com.hackathon.fiap.timesheet.application.core.contants.EmployeeRole;
+import com.hackathon.fiap.timesheet.application.core.constant.EmployeeRole;
 import com.hackathon.fiap.timesheet.application.core.domain.Employee;
 import com.hackathon.fiap.timesheet.application.core.exptions.EmployeeNotFoundException;
 import com.hackathon.fiap.timesheet.application.core.exptions.InvalidFormatException;
@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 
 public class EmployeeUseCase implements EmployeeInputPort {
     private final EmployeeOutputPort employeeOutputPort;
+    private static final Pattern EMP_NAME_PATTERN = Pattern.compile("^[a-zA-Z]+(\\s[a-zA-Z]+)?+$");
 
     public EmployeeUseCase(EmployeeOutputPort employeeOutputPort) {
         this.employeeOutputPort = employeeOutputPort;
@@ -44,7 +45,7 @@ public class EmployeeUseCase implements EmployeeInputPort {
 
     @Override
     public void delete(Long employeeId) {
-        if(!employeeOutputPort.exists(employeeId)) throw new EmployeeNotFoundException("Employee not found");
+        if(Boolean.FALSE.equals(employeeOutputPort.exists(employeeId))) throw new EmployeeNotFoundException("Employee not found");
         employeeOutputPort.delete(employeeId);
     }
 
@@ -63,7 +64,6 @@ public class EmployeeUseCase implements EmployeeInputPort {
     }
 
     private static boolean isValidName(String name) {
-        String regex = "^[a-zA-Z]+(?:\\s[a-zA-Z]+)*$";
-        return Pattern.matches(regex, name);
+        return EMP_NAME_PATTERN.matcher(name).matches();
     }
 }
