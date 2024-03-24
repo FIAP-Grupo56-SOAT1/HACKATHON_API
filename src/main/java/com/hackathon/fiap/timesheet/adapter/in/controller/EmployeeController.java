@@ -3,7 +3,7 @@ package com.hackathon.fiap.timesheet.adapter.in.controller;
 import com.hackathon.fiap.timesheet.adapter.in.controller.mapper.EmployeeMapper;
 import com.hackathon.fiap.timesheet.adapter.in.controller.request.EmployeeRequest;
 import com.hackathon.fiap.timesheet.adapter.in.controller.response.EmployeeResponse;
-import com.hackathon.fiap.timesheet.application.core.contants.EmployeeRole;
+import com.hackathon.fiap.timesheet.application.core.constant.EmployeeRole;
 import com.hackathon.fiap.timesheet.application.core.domain.Employee;
 import com.hackathon.fiap.timesheet.application.core.ports.in.AutenticationInputPort;
 import com.hackathon.fiap.timesheet.application.core.ports.in.EmployeeInputPort;
@@ -54,7 +54,7 @@ public class EmployeeController {
     }
 
     private Long getUserEmployeeId(HttpServletRequest request) {
-        return autenticationInputPort.GetUserByToken(request).getEmployeeId();
+        return autenticationInputPort.getUserByToken(request).getEmployeeId();
     }
 
     private boolean isManager(Long employeeId) {

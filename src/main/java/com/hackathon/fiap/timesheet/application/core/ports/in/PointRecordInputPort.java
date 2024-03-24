@@ -1,6 +1,6 @@
 package com.hackathon.fiap.timesheet.application.core.ports.in;
 
-import com.hackathon.fiap.timesheet.application.core.contants.PointRecordType;
+import com.hackathon.fiap.timesheet.application.core.constant.PointRecordType;
 import com.hackathon.fiap.timesheet.application.core.domain.PointRecord;
 
 import java.time.LocalDate;

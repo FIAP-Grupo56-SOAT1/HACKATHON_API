@@ -2,7 +2,7 @@ package com.hackathon.fiap.timesheet.adapter.out;
 
 import com.hackathon.fiap.timesheet.adapter.out.exception.EmailSendingException;
 import com.hackathon.fiap.timesheet.adapter.out.exception.ExcelCreationException;
-import com.hackathon.fiap.timesheet.application.core.contants.PointRecordType;
+import com.hackathon.fiap.timesheet.application.core.constant.PointRecordType;
 import com.hackathon.fiap.timesheet.application.core.ports.out.SendDotMirrorEmailOutputPort;
 import com.hackathon.fiap.timesheet.application.core.reports.DefaultDotMirrorReportData;
 import com.hackathon.fiap.timesheet.application.core.valueobject.PointRecordReportData;
@@ -21,9 +21,7 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.DirectoryNotEmptyException;
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -44,6 +42,7 @@ public class SendDotMirrorEmailAdapter implements SendDotMirrorEmailOutputPort {
             helper.addAttachment(Objects.requireNonNull(file.getFilename()), file);
             mailSender.send(message);
             cleanUp(Path.of(file.getPath()));
+            log.info("Email sent successfully to: " + email);
         } catch (Exception ex) {
             log.error("Error while sending email: ", ex);
             throw new EmailSendingException("Error while sending email", ex);

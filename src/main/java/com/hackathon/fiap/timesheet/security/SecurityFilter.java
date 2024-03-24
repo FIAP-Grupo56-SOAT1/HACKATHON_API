@@ -26,7 +26,7 @@ public class SecurityFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
         var tokenJWT = recoverToken(request);
         if (tokenJWT != null) {
-            var subject = autenticationInputPort.GetSubject(tokenJWT);
+            var subject = autenticationInputPort.getSubject(tokenJWT);
             var user = userInputPort.findByUserName(subject);
 
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());

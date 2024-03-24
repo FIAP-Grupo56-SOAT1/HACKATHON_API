@@ -6,8 +6,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 public interface AutenticationInputPort {
-    UsernamePasswordAuthenticationToken GetUsernamePasswordAuthenticationToken(String userId,String password);
-    String GenerateTokenJwt(UserEntity user);
-    String GetSubject(String tokenJWT);
-    User GetUserByToken(HttpServletRequest request);
+    UsernamePasswordAuthenticationToken getUsernamePasswordAuthenticationToken(String userId, String password);
+
+    String generateTokenJwt(UserEntity user);
+
+    String getSubject(String tokenJWT);
+
+    User getUserByToken(HttpServletRequest request);
 }

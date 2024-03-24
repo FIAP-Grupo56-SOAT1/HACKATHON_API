@@ -1,6 +1,6 @@
 package com.hackathon.fiap.timesheet.application.core.ports.in;
 
-import com.hackathon.fiap.timesheet.application.core.contants.EmployeeRole;
+import com.hackathon.fiap.timesheet.application.core.constant.EmployeeRole;
 import com.hackathon.fiap.timesheet.application.core.domain.Employee;
 
 import java.util.List;

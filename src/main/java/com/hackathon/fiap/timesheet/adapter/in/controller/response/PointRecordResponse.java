@@ -2,7 +2,7 @@ package com.hackathon.fiap.timesheet.adapter.in.controller.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.hackathon.fiap.timesheet.application.core.contants.PointRecordType;
+import com.hackathon.fiap.timesheet.application.core.constant.PointRecordType;
 import lombok.*;
 
 import java.time.LocalDate;

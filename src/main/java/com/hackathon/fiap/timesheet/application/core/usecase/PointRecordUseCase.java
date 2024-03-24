@@ -1,6 +1,6 @@
 package com.hackathon.fiap.timesheet.application.core.usecase;
 
-import com.hackathon.fiap.timesheet.application.core.contants.PointRecordType;
+import com.hackathon.fiap.timesheet.application.core.constant.PointRecordType;
 import com.hackathon.fiap.timesheet.application.core.domain.PointRecord;
 import com.hackathon.fiap.timesheet.application.core.exptions.BusinessRuleException;
 import com.hackathon.fiap.timesheet.application.core.exptions.EmployeeNotFoundException;
@@ -41,7 +41,9 @@ public class PointRecordUseCase implements PointRecordInputPort {
         validateEmployee(employeeId);
         validatePointRecord(employeeId, date, time, type);
         LocalDate today = LocalDate.now();
-        if (date.isAfter(today)) throw new BusinessRuleException("You cannot register a point in the future");
+        LocalTime now = LocalTime.now();
+        if (date.isAfter(today) || (date.isEqual(today) && time.isAfter(now)))
+            throw new BusinessRuleException("You cannot register a point in the future");
         if (date.isBefore(today.minusMonths(3)))
             throw new BusinessRuleException("You cannot register a point older than 3 months");
         PointRecord pointRecord = new PointRecord();

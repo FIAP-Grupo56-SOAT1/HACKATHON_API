@@ -1,6 +1,6 @@
 package com.hackathon.fiap.timesheet.adapter.out.repository.entity;
 
-import com.hackathon.fiap.timesheet.application.core.contants.PointRecordType;
+import com.hackathon.fiap.timesheet.application.core.constant.PointRecordType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

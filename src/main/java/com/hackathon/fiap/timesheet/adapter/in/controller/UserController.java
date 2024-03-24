@@ -5,7 +5,7 @@ import com.hackathon.fiap.timesheet.adapter.in.controller.request.PasswordUpdReq
 import com.hackathon.fiap.timesheet.adapter.in.controller.request.UserActivationRequest;
 import com.hackathon.fiap.timesheet.adapter.in.controller.request.UserRequest;
 import com.hackathon.fiap.timesheet.adapter.in.controller.response.UserResponse;
-import com.hackathon.fiap.timesheet.application.core.contants.EmployeeRole;
+import com.hackathon.fiap.timesheet.application.core.constant.EmployeeRole;
 import com.hackathon.fiap.timesheet.application.core.domain.User;
 import com.hackathon.fiap.timesheet.application.core.ports.in.AutenticationInputPort;
 import com.hackathon.fiap.timesheet.application.core.ports.in.EmployeeInputPort;
@@ -80,7 +80,7 @@ public class UserController {
     }
 
     private User getUser(HttpServletRequest request) {
-        return autenticationInputPort.GetUserByToken(request);
+        return autenticationInputPort.getUserByToken(request);
     }
 
     private boolean isManager(Long employeeId) {

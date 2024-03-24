@@ -1,6 +1,6 @@
 package com.hackathon.fiap.timesheet.application.core.domain;
 
-import com.hackathon.fiap.timesheet.application.core.contants.EmployeeRole;
+import com.hackathon.fiap.timesheet.application.core.constant.EmployeeRole;
 
 public class Employee {
     private Long employeeId;
