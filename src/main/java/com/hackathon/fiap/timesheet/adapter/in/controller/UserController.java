@@ -18,6 +18,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("users")
@@ -77,6 +79,15 @@ public class UserController {
             return ResponseEntity.status(403).build();
         userInputPort.updateStatus(userId, userActivationRequest.getActive());
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping()
+    @Operation(summary = "Listar usuários", description = "Lista todos os usuários")
+    public ResponseEntity<List<UserResponse>> list(HttpServletRequest request) {
+        if (!isManager(getUser(request).getEmployeeId())) return ResponseEntity.status(403).build();
+        List<User> user = userInputPort.listUsers();
+        List<UserResponse> userResponse = userMapper.toUserResponseList(user);
+        return ResponseEntity.ok(userResponse);
     }
 
     private User getUser(HttpServletRequest request) {

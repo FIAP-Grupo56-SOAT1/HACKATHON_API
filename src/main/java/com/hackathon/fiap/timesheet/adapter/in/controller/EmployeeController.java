@@ -15,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("employees")
@@ -50,6 +52,16 @@ public class EmployeeController {
         if (!isManager(userEmployeeId) && !employeeId.equals(userEmployeeId)) return ResponseEntity.status(403).build();
         Employee employee = employeeInputPort.get(employeeId);
         EmployeeResponse employeeResponse = employeeMapper.toEmployeeResponse(employee);
+        return ResponseEntity.ok(employeeResponse);
+    }
+
+    @GetMapping()
+    @Operation(summary = "Listar funcionários", description = "Lista todos os funcionários")
+    public ResponseEntity<List<EmployeeResponse>> list(HttpServletRequest request) {
+        Long userEmployeeId = getUserEmployeeId(request);
+        if (!isManager(userEmployeeId)) return ResponseEntity.status(403).build();
+        List<Employee> employee = employeeInputPort.listEmployees();
+        List<EmployeeResponse> employeeResponse = employeeMapper.toEmployeesResponse(employee);
         return ResponseEntity.ok(employeeResponse);
     }
 
