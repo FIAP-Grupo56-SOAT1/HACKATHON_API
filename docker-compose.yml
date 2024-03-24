@@ -5,7 +5,7 @@ services:
     restart: always
     environment:
       - APP_PORT=8080
-      - DB_SERVER=localhost
+      - DB_SERVER=mysql-timesheet
       - DB_PORT=3306
       - DB_NAME=timesheetdb
       - DB_USER=hackathon
@@ -13,15 +13,15 @@ services:
       - DB_ROOT_PASSWORD=grupo56
       - JWT_SECRET=12345678
       - TOKEN_EXPIRATION_MINUTES=60
-      - TIME_ZONE="America/Sao_Paulo"
-      - SENDER_MAIL="wilianfiap@gmail.com"
-      - SENDER_MAIL_PASSWORD="cczi ddwy seen kygq"
-      - MAIL_HOST="smtp.gmail.com"
+      - TIME_ZONE=America/Sao_Paulo
+      - SENDER_MAIL=wilianfiap@gmail.com
+      - SENDER_MAIL_PASSWORD=cczi ddwy seen kygq
+      - MAIL_HOST=smtp.gmail.com
       - MAIL_PORT=587
     ports:
       - "8080:8080"
     networks:
-      - fast-eats-app
+      - timesheet-app
     depends_on:
       mysql-timesheet:
         condition: service_healthy
@@ -31,15 +31,15 @@ services:
     restart: always
     environment:
       - MYSQL_DATABASE=timesheetdb
-      - MYSQL_USER=fiap56
-      - MYSQL_PASSWORD=fiap56
-      - MYSQL_ROOT_PASSWORD=fiap56
+      - MYSQL_USER=hackathon
+      - MYSQL_PASSWORD=grupo56
+      - MYSQL_ROOT_PASSWORD=grupo56
     ports:
       - "3306:3306"
     expose:
       - "3306"
     networks:
-      - fast-eats-app
+      - timesheet-app
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "mysql-timesheet", "-u", "${DB_USER}", "--password=${DB_PASSWORD}" ]
       start_period: 5s
@@ -47,7 +47,6 @@ services:
       timeout: 5s
       retries: 55
 
-
 networks:
-  fast-eats-app:
+  timesheet-app:
     driver: bridge
