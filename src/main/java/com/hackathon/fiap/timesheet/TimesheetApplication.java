@@ -9,7 +9,7 @@ import java.util.TimeZone;
 
 @SpringBootApplication
 public class TimesheetApplication {
-    @Value("${spring.jackson.time-zone}")
+    @Value("${TIME_ZONE}")
     private String timezone;
 
     @PostConstruct
