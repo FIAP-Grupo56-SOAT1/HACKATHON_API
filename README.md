@@ -37,3 +37,23 @@ O aplicativo Timesheet é construído utilizando a arquitetura hexagonal, també
 - **Autenticação**: Spring Security
 - **Gestão de Dependências e Compilação**: Maven
 - **Testes**: JUnit, Mockito
+
+## Executando o Projeto
+
+### Variáveis de Ambiente
+
+- Na raiz do projeto existe o arquivo [env-exemplo](env-exemplo) onde estão todas as variáveis de ambiente necessárias para a execução da aplicação.
+- **`Para facilitar a avaliação do projeto pelos professores já deixamos pronto o arquivo .env com todas as variáveis necessárias.`**
+
+### Executando com Docker
+Para realização dos testes do projeto inteiro de forma local foi criado um arquivo [docker-compose](docker-compose.yml) na raiz do repositório da API, executando o comando docker-compose up -d no diretório onde está esse arquivo será executada a aplicação Timesheet e o banco de dados que a aplicação utiliza.
+
+<br></br>
+Execute o comando abaixo no diretório raiz do projeto para executar a aplicação em conjunto com os demais serviços:
+
+```bash
+docker-compose up -d
+```
+
+<br></br>
+Para realizar testes de forma local apenas para este microserviço no diretorio `src/test/resources/docker-compose` existem os arquivos docker-compose para auxiliar.
