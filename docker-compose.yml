@@ -1,0 +1,52 @@
+version: '3.8'
+services:
+  api-timesheet:
+    image: fiap56soat1/hackathon-ms-timesheet-api:latest
+    restart: always
+    environment:
+      - APP_PORT=8080
+      - DB_SERVER=mysql-timesheet
+      - DB_PORT=3306
+      - DB_NAME=timesheetdb
+      - DB_USER=hackathon
+      - DB_PASSWORD=grupo56
+      - DB_ROOT_PASSWORD=grupo56
+      - JWT_SECRET=12345678
+      - TOKEN_EXPIRATION_MINUTES=60
+      - TIME_ZONE=America/Sao_Paulo
+      - SENDER_MAIL=wilianfiap@gmail.com
+      - SENDER_MAIL_PASSWORD=cczi ddwy seen kygq
+      - MAIL_HOST=smtp.gmail.com
+      - MAIL_PORT=587
+    ports:
+      - "8080:8080"
+    networks:
+      - timesheet-app
+    depends_on:
+      mysql-timesheet:
+        condition: service_healthy
+
+  mysql-timesheet:
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_DATABASE=timesheetdb
+      - MYSQL_USER=hackathon
+      - MYSQL_PASSWORD=grupo56
+      - MYSQL_ROOT_PASSWORD=grupo56
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    networks:
+      - timesheet-app
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "mysql-timesheet", "-u", "${DB_USER}", "--password=${DB_PASSWORD}" ]
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 55
+
+networks:
+  timesheet-app:
+    driver: bridge

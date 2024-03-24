@@ -509,6 +509,23 @@
 							"body": ""
 						}
 					]
+				},
+				{
+					"name": "Listar usuários",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -539,7 +556,7 @@
 							"variable": [
 								{
 									"key": "employeeId",
-									"value": "<long>",
+									"value": "1",
 									"description": "(Required) "
 								}
 							]
@@ -727,7 +744,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"employeeId\": \"<long>\",\n  \"date\": \"<date>\",\n  \"time\": {\n    \"hour\": \"<integer>\",\n    \"minute\": \"<integer>\",\n    \"second\": \"<integer>\",\n    \"nano\": \"<integer>\"\n  },\n  \"type\": \"IN\"\n}",
+							"raw": "{\n  \"employeeId\": \"1\",\n  \"date\": \"2024-03-01\",\n  \"time\": \"08:00\",\n  \"type\": \"IN\"\n}",
 							"options": {
 								"raw": {
 									"headerFamily": "json",
@@ -807,6 +824,15 @@
 								"value": "*/*"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{baseUrl}}/point-records/employees/record-point/:type",
 							"host": [
@@ -821,7 +847,7 @@
 							"variable": [
 								{
 									"key": "type",
-									"value": "OUT",
+									"value": "IN",
 									"description": "(Required) "
 								}
 							]
@@ -1440,6 +1466,23 @@
 							"body": ""
 						}
 					]
+				},
+				{
+					"name": "Listar Funcionários",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/employees",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"employees"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
