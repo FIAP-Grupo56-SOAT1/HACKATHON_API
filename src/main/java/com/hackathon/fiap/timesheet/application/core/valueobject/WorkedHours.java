@@ -12,7 +12,7 @@ public class WorkedHours {
     private WorkedHours() {
     }
 
-    public static LocalTime calculateTotal(List<PointRecord> pointRecords) {
+    public static String calculateTotal(List<PointRecord> pointRecords) {
         long totalMinutes = 0;
         LocalTime startTime = null;
         for (PointRecord pointRecord : pointRecords) {
@@ -25,6 +25,7 @@ public class WorkedHours {
                 startTime = null;
             }
         }
-        return LocalTime.of((int) (totalMinutes / 60), (int) (totalMinutes % 60));
+        Duration total = Duration.ofMinutes(totalMinutes);
+        return String.format("%d:%02d", total.toHours(), total.toMinutesPart());
     }
 }
