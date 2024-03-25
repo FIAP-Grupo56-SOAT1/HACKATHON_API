@@ -2,7 +2,6 @@ package com.hackathon.fiap.timesheet.application.core.reports;
 
 import com.hackathon.fiap.timesheet.application.core.valueobject.PointRecordReportData;
 
-import java.time.LocalTime;
 import java.util.List;
 
 public class DefaultDotMirrorReportData {
@@ -11,12 +10,12 @@ public class DefaultDotMirrorReportData {
     private Integer month;
     private Integer year;
     private List<PointRecordReportData> pointRecords;
-    private LocalTime totalWorkedTime;
+    private String totalWorkedTime;
 
     public DefaultDotMirrorReportData() {
     }
 
-    public DefaultDotMirrorReportData(Long employeeId, String employeeName, Integer month, Integer year, List<PointRecordReportData> pointRecords, LocalTime totalWorkedTime) {
+    public DefaultDotMirrorReportData(Long employeeId, String employeeName, Integer month, Integer year, List<PointRecordReportData> pointRecords, String totalWorkedTime) {
         this.employeeId = employeeId;
         this.employeeName = employeeName;
         this.month = month;
@@ -65,11 +64,11 @@ public class DefaultDotMirrorReportData {
         this.pointRecords = pointRecords;
     }
 
-    public LocalTime getTotalWorkedTime() {
+    public String getTotalWorkedTime() {
         return totalWorkedTime;
     }
 
-    public void setTotalWorkedTime(LocalTime totalWorkedTime) {
+    public void setTotalWorkedTime(String totalWorkedTime) {
         this.totalWorkedTime = totalWorkedTime;
     }
 }

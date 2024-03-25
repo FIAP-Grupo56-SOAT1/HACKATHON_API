@@ -12,8 +12,8 @@ import com.hackathon.fiap.timesheet.application.core.reports.DefaultDotMirrorRep
 import com.hackathon.fiap.timesheet.application.core.valueobject.PointRecordReportData;
 import com.hackathon.fiap.timesheet.application.core.valueobject.WorkedHours;
 
+import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,9 +49,9 @@ public class DotMirrorReportUseCase implements DotMirrorReportInputPort {
                 pointRecordOutputPort.findByEmployeeIdAndMonthAndYear(employee.getEmployeeId(), startDate, endDate);
         List<PointRecordReportData> pointRecordReportData = transformToReportData(pointRecords);
         defaultDotMirrorReportData.setPointRecords(pointRecordReportData);
-        defaultDotMirrorReportData.setTotalWorkedTime(LocalTime.of(0, 0));
+        defaultDotMirrorReportData.setTotalWorkedTime("00:00");
         if (!defaultDotMirrorReportData.getPointRecords().isEmpty()) {
-            LocalTime totalWorkedTime = WorkedHours.calculateTotal(filterInAndOutPairs(pointRecords));
+            String totalWorkedTime = WorkedHours.calculateTotal(filterInAndOutPairs(pointRecords));
             defaultDotMirrorReportData.setTotalWorkedTime(totalWorkedTime);
         }
         return defaultDotMirrorReportData;

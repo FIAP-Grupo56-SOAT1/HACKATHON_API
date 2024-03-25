@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -112,7 +113,7 @@ public class PointRecordController {
 
     private ResponseEntity<PointRecordTotalResponse> getPointRecordTotalResponseResponseEntity(@PathVariable("employeeId") Long employeeId, @PathVariable("date") LocalDate date) {
         List<PointRecord> pointRecord = pointRecordInputPort.listByDateAndEmployeeId(employeeId, date);
-        LocalTime totalWorkedHours = WorkedHours.calculateTotal(pointRecord);
+        String totalWorkedHours = WorkedHours.calculateTotal(pointRecord);
         List<PointRecordResponse> pointRecordResponse = pointRecordMapper.toPointRecordResponse(pointRecord);
         PointRecordTotalResponse pointRecordTotalResponse = new PointRecordTotalResponse(pointRecordResponse, totalWorkedHours);
         return ResponseEntity.ok(pointRecordTotalResponse);
@@ -120,7 +121,7 @@ public class PointRecordController {
 
     private ResponseEntity<PointRecordTotalResponse> getPointRecordTotalResponseResponseEntity(@PathVariable("employeeId") Long employeeId) {
         List<PointRecord> pointRecord = pointRecordInputPort.listByEmployeeId(employeeId);
-        LocalTime totalWorkedHours = WorkedHours.calculateTotal(pointRecord);
+        String totalWorkedHours = WorkedHours.calculateTotal(pointRecord);
         List<PointRecordResponse> pointRecordResponse = pointRecordMapper.toPointRecordResponse(pointRecord);
         PointRecordTotalResponse pointRecordTotalResponse = new PointRecordTotalResponse(pointRecordResponse, totalWorkedHours);
         return ResponseEntity.ok(pointRecordTotalResponse);

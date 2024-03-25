@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
+import java.time.Duration;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -19,6 +20,6 @@ public class DefaultDotMirrorReportResponse {
     private Integer month;
     private Integer year;
     private List<PointRecordReportDataResponse> pointRecords;
-    @JsonFormat(pattern="HH:mm")
-    private LocalTime totalWorkedTime;
+
+    private String totalWorkedTime;
 }
